@@ -19,8 +19,8 @@ int main () {
 
 	vector<double> x = linspace(0, x_max, int(x_max/dx));
 	vector<double> y = linspace(0, y_max, int(y_max/dx));
-	vector<vector<double>> u(x.size(), vector<double> (y.size(), 0));
-	vector<vector<double>> u1;
+	vector< vector<double> > u(x.size(), vector<double> (y.size(), 0));
+	vector< vector<double> > u1;
 
 
 	for (int i = 0; i < x.size(); i++) {
