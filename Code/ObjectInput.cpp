@@ -23,7 +23,7 @@
 
 
 
-
+#include <vector>
 
 
 /* Box class functions */
