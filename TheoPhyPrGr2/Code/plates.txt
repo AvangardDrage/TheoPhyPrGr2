@@ -1,0 +1,47 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+
+
+x, y, u, E = [], [], [], []
+error = 1
+tol = 1e-3
+dx = 0.01
+
+x = np.linspace(0, 10, 1/dx + 1)
+y = np.linspace(0, 1, 1/dx + 1)
+
+u = np.zeros([np.size(x), np.size(y)])
+E = np.zeros([np.size(x), np.size(y)])
+
+for i in range(np.size(x)):
+    u[i][0] = 5
+    u[i][np.size(x)-1] = -5
+
+
+while abs(error) > tol:
+    u1 = u.copy()
+
+    for i in range(1,np.size(x)-1):
+        for j in range(1,np.size(y)-1):
+
+            u[i][j] = (u1[i+1][j] + u1[i-1][j] + u1[i][j+1] + u1[i][j-1]) /4
+
+    error = u[i][j]-u1[i][j]
+
+
+
+
+fig, ax = plt.subplots(1, 1)
+im = ax.pcolormesh(y, x, u[:], vmin=-5, vmax=5, cmap=cm.afmhot)
+fig.colorbar(im)
+plt.show()
+
+
+E = np.gradient(u)
+E_value = np.sqrt(np.array(E[0])**2 + np.array(E[0])**2)
+
+fig, ax = plt.subplots(1, 1)
+im = ax.pcolormesh(y, x, E_value[:], vmin=-5, vmax=5, cmap=cm.afmhot)
+fig.colorbar(im)
+plt.show()

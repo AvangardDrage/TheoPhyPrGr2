@@ -23,7 +23,8 @@
 
 
 
-
+#include <vector>
+#include "ObjectInput.h"
 
 /* Box class functions */
 
@@ -33,7 +34,7 @@ void Box::set_centre (double x, double y)
   centre.push_back(y);
 }
 
-void Box::set_parametres (double x, double y)
+void Box::set_parameters (double x, double y)
 {
   width = x;
   length = y;
@@ -41,13 +42,13 @@ void Box::set_parametres (double x, double y)
 
 void Box::set_potential (double V)
 {
-  if(Ground)
+  if(ground)
     {
-      Potential = 0;
+      potential = 0;
     }
   else
     {
-      Potential = V;
+      potential = V;
     }
 }
 
@@ -66,13 +67,13 @@ void Circle::set_radius (double r)
 
 void Circle::set_potential (double V)
 {
-  if(Ground)
+  if(ground)
     {
-      Potential = 0;
+      potential = 0;
     }
   else
     {
-      Potential = V;
+      potential = V;
     }
 }
 
@@ -89,21 +90,21 @@ void Wire::set_length (double l)
   length = l;
 }
 
-void Wire::set_direction (double x, double y)
+void Wire::set_direction (double xdir, double ydir)
 {
-  direction.push_back(x);
-  direction.push_back(y);
+  direction.push_back(xdir);
+  direction.push_back(ydir);
 }
 
 void Wire::set_potential (double V)
 {
-  if(Ground)
+  if(ground)
     {
-      Potential = 0;
+      potential = 0;
     }
   else
     {
-      Potential = V;
+     potential = V;
     }
 }
 
@@ -114,26 +115,20 @@ void Boundary::set_centre (double x, double y)
   centre.push_back(y);
 }
 
-void Boundary::set_parametres (double x, double y)
+void Boundary::set_direction (double xdir, double ydir)
 {
-  width = x;
-  length = y;
-}
-
-void Boundary::set_direction (double x, double y)
-{
-  direction.push_back(x);
-  direction.push_back(y);
+  direction.push_back(xdir);
+  direction.push_back(ydir);
 }
 
 void Boundary::set_potential (double V)
 {
-  if(Ground)
+  if(ground)
     {
-      Potential = 0;
+      potential = 0;
     }
   else
     {
-      Potential = V;
+      potential = V;
     }
 }
