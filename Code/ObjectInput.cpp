@@ -30,6 +30,7 @@
 
 void Box::set_centre (double x, double y)
 {
+  centre.clear();
   centre.push_back(x);
   centre.push_back(y);
 }
@@ -56,6 +57,7 @@ void Box::set_potential (double V)
 
 void Circle::set_centre (double x, double y)
 {
+  centre.clear();
   centre.push_back(x);
   centre.push_back(y);
 }
@@ -81,6 +83,7 @@ void Circle::set_potential (double V)
 
 void Wire::set_centre (double x, double y)
 {
+  centre.clear();
   centre.push_back(x);
   centre.push_back(y);
 }
@@ -92,6 +95,7 @@ void Wire::set_length (double l)
 
 void Wire::set_direction (double xdir, double ydir)
 {
+  direction.clear();
   direction.push_back(xdir);
   direction.push_back(ydir);
 }
@@ -111,12 +115,14 @@ void Wire::set_potential (double V)
 /* Boundary Class functions */
 void Boundary::set_centre (double x, double y)
 {
+  centre.clear();
   centre.push_back(x);
   centre.push_back(y);
 }
 
 void Boundary::set_direction (double xdir, double ydir)
 {
+  direction.clear();
   direction.push_back(xdir);
   direction.push_back(ydir);
 }
