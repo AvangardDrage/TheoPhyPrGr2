@@ -1,27 +1,14 @@
-INC = -I ./Headers/ # add for header compilation
+#Makefile to compile multiple executables with the same name as the sources
+#https://gist.github.com/juanpabloaj/3726212
 
-REMOVE = $(basename $(shell ls *.o)).o
+FILES = $(basename $(shell ls *cpp))
 
-objclass: test.o ObjectInput.o
-	g++ -o $@ $^
+all: $(FILES)
 
-test.o: test.cpp ./Headers/ObjectInput.h
-	g++ $(INC) -c test.cpp
+%: %.cpp
+	g++ -o $@ $<
 
-ObjectInput.o: ObjectInput.cpp ./Headers/ObjectInput.h
-	 g++ $(INC) -c ObjectInput.cpp
+clean:
+	rm $(FILES)
 
-laplace_new: laplace_new.o
-	g++ -Wall -o $@ $<
 
-laplace_new.o: laplace_new.cpp ./Headers/linspace.h
-	g++ $(INC) -c laplace.cpp
-
-finite: finite.o
-	g++ -Wall -o $@ $<
-
-finite.o: finite.cpp
-	g++ $(INC) -c finite.cpp
-
-clean: 
-	rm test.o ObjectInput.o laplace_new.o finite.o objclass laplace_new finite
