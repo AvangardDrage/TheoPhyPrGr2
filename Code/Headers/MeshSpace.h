@@ -5,6 +5,8 @@ class MeshPoint{
  public:
   bool predef;
   double potential;
+
+  MeshPoint (bool, double); 
 };
 
 #endif
