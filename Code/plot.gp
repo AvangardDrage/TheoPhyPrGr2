@@ -1,7 +1,8 @@
 set terminal pdf
 set output "plot.pdf"
+set size square
 
-set title "Electric potential between two parallel plates"
+set title "Electric potential"
 set xlabel "x"
 set ylabel "y"
 set rmargin at screen 0.8
@@ -16,8 +17,8 @@ set palette defined ( 0 "#000090",\
                       7 "#ee0000",\
                       8 "#7f0000")
 set cblabel "f(x,y)"
-plot [0:10] [0:10] "plates.dat" using 1:2:3 with image notitle
+plot [0:10] [0:10] "solution.dat" using 1:2:3 with image notitle
 
-set title "Electric field between two parallel plates"
-plot [0:10] [0:10] "plates.dat" using 1:2:4 with image notitle
+set title "Electric field"
+plot [0:10] [0:10] "solution.dat" using 1:2:4 with image notitle
 
