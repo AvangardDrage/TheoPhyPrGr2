@@ -39,6 +39,9 @@ GridGen.o: GridGen.cpp ./Headers/GridGen.h
 EigenRule: <.cpp> $(EPATH)<include>
 	g++ -c <executable> $^
 
+MTRXtest: matrixtest.cpp ObjectInput.cpp
+	g++ $(EPATH) $(HPATH) -o MTRXtest.exe $^
+
 clean_o: 
 	rm $(REMOVE_O)
 clean_e:

@@ -120,14 +120,22 @@ void Boundary::set_centre (double x, double y)
   centre.push_back(y);
 }
 
-void Boundary::set_direction (double xdir, double ydir)
+void Plate::set_direction (bool vert, bool pos)
 {
   direction.clear();
-  direction.push_back(xdir);
-  direction.push_back(ydir);
+  direction.push_back(vert);
+  direction.push_back(pos);
 }
 
-void Boundary::set_potential (double V)
+
+// void Plate::set_direction (double xdir, double ydir)
+// {
+//   direction.clear();
+//   direction.push_back(xdir);
+//   direction.push_back(ydir);
+// }
+
+void Plate::set_potential (double V)
 {
   if(ground)
     {
