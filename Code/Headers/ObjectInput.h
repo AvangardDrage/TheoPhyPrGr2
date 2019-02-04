@@ -15,7 +15,7 @@ class Box{
 
   void set_centre (double x,double y);
   void set_parameters (double width, double length);
-  void set_potential (double potential); 
+  void set_potential (double potential);
 };
 
 class Circle{
@@ -31,30 +31,33 @@ class Circle{
 };
 
 
-class Wire{
+/* class Wire{ */
+/*  public: */
+/*   std::vector<double> centre; */
+/*   std::vector<double> direction; */
+/*   double length; */
+/*   bool ground; */
+/*   double potential; */
+
+/*   void set_centre (double x, double y); */
+/*   void set_length (double length); */
+/*   void set_direction (double xdir, double ydir); */
+/*   void set_potential (double potential); */
+/* }; */
+
+class Plate{
  public:
   std::vector<double> centre;
-  std::vector<double> direction;
-  double length;
+  std::vector<bool> direction;
   bool ground;
-  double potential;
-
-  void set_centre (double x, double y);
-  void set_length (double length);
-  void set_direction (double xdir, double ydir);
-  void set_potential (double potential);
-};
-
-class Boundary{
- public:
-  std::vector<double> centre;
-  std::vector<double> direction;
-  bool ground;
+  bool direction;
   double potential;
 
   void set_centre (double x, double y);
   void set_potential (double potental);
-  void set_direction (double xdir, double ydir);
+  //void set_direction (double xdir, double ydir);
+  void set_direction (bool vert, bool pos); // if vert=yes => plate is vertical, pos=yes => extension to the [+] direction
+
 };
 		      
 
