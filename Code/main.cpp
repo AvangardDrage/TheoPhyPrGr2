@@ -1,67 +1,185 @@
 #include <iostream>
-#include <vector>
-#include <ctime>
-#include "numerical.h"
-//#include "ObjectInput.h"
+#include <Eigen/Dense>
+#include "ObjectInput.h"
+#include "Boundary.h"
 
-using namespace std;
+int main()
+{
+  int n;
+  std::cout<< "Enter row and column number: ";
+  std::cin >> n;
+  Eigen::Matrix <bool,10,10> lgrid(n,n); // logic grid
+  Eigen::Matrix <double,10,10> pgrid(n,n); // potential grid
+  
+  for(int i=0; i<lgrid.rows();i++)
+    {
+      for(int j=0; j<lgrid.cols(); j++)
+	{
+	  lgrid(i,j) = true;
+	  pgrid(i,j) = 0;
+	}
+    }
 
-int main() {
+  bool another;
+  Box bobj;
+  Circle cobj;
+  Plate pobj;
+  char g;
+  int xc, yc;
+  double p;
 
-	// Set the dimensions of the solution grid and the respective increment sizes
-	int xsize = 200;
-	int ysize = 200;
-	float dx = 0.05;
-	float dy = 0.05;
+  do
+    {
+      another = false;
+      char o;
+      char t;
+      std::cout << "Please choose an object (B,C, or P) to insert: ";
+      std::cin >> o;
+      
+      switch(o){
+      case 'B' :
+	
+	int w,l;
 
-	// Initialise grids for potential and boundaries to zero
-	vector< vector<double> > u(ysize, vector<double> (xsize, 0));
-	vector< vector<double> > bound(ysize, vector<double> (xsize, 0));
+	std::cout <<"Please enter the x coordinate of the centre: ";
+	std::cin >> xc;
+	bobj.centre[0]=xc;
 
-	/*
-	Box test;
+	std::cout <<"Please enter the y coordinate of the centre: ";
+	std::cin >> yc;
+	bobj.centre[1]=yc;
 
-	test.ground = true;
+	std::cout <<"Width of the box: ";
+	std::cin >> w;
+	bobj.width = w;
 
-	test.set_centre(5/dx, 5/dy);
-	test.set_parameters(0.5/dx, 4/dx);
-	test.set_potential(5);
-	*/
+	std::cout << "Lenght of the box: ";
+	std::cin >> l;
+	bobj.length = l;
+
+	std::cout << "Is the object grounded?('y' or 'n'): ";
+	std::cin >> g;
+       
+
+	if(g=='n')
+	  {
+	    std::cout << "Specify potential of bobject: ";
+	    std::cin >> p;
+
+	    bobj.potential = p;
+	  }
+	else
+	  {
+	    bobj.potential = 0;
+	  }
+	
+	
+        BGD(lgrid, bobj);
+        BPD(pgrid, bobj);
+
+      	break;
+      case 'C' :
+	int r;
+	
+
+	std::cout <<"Please enter the x coordinate of the centre: ";
+	std::cin >> xc;
+	cobj.centre[0]=xc;
+
+	std::cout <<"Please enter the y coordinate of the centre: ";
+	std::cin >> yc;
+	cobj.centre[1]=yc;
+
+	std::cout <<"Radius of Circle: ";
+	std::cin >> r;
+	cobj.radius = r;
+
+	std::cout << "Is the object grounded?('y' or 'n'): ";
+	std::cin >> g;
+       
+
+	if(g=='n')
+	  {
+	    std::cout << "Specify potential of object: ";
+	    std::cin >> p;
+
+	    cobj.potential = p;
+	  }
+	else
+	  {
+	    cobj.potential = 0;
+	  }
+	
+	
+        CGD(lgrid, cobj);
+        CPD(pgrid, cobj);
+	
+
+      	break;
+      case 'P' :
+	char vert, pos;
+	
+	std::cout <<"Please enter the x coordinate of an end: ";
+	std::cin >> xc;
+	pobj.centre[0]=xc;
+
+	std::cout <<"Please enter the y coordinate of an end: ";
+	std::cin >> yc;
+	pobj.centre[1]=yc;
+
+	std::cout <<"Is the plate vertical? ('y' or 'n'): ";
+	std::cin >> vert;
+	if(vert=='n'){pobj.direction[0]=false;}
+	
+	std::cout <<"Moving Right/Down? ('y' or 'n'): ";
+	std::cin >> pos;
+	if(vert=='n'){pobj.direction[1]=false;}
+
+	std::cout << "Is the object grounded?('y' or 'n'): ";
+	std::cin >> g;
+       
+
+	if(g=='n')
+	  {
+	    std::cout << "Specify potential of object: ";
+	    std::cin >> p;
+
+	    pobj.potential = p;
+	  }
+	else
+	  {
+	    pobj.potential = 0;
+	  }
+
+        PGD(lgrid, pobj);
+        PPD(pgrid, pobj);
 
 
-	// Set the boundaries of the system
-	for (int i = int(3/dx-1); i < ysize-int(3/dx-1); i++) {
-		bound[i][int(4/dx-1)] = 100;
-		bound[i][xsize-int(4/dx-1)] = -100;
+      	break;
+      default:
+	std::cout << "Entered undefined object class, please try again." << std::endl;
+	another = true;
+      }
+
+      std::cout << "Would you like to insert another object? ('y' or 'n')" <<std:: endl;
+      std::cin >> t;
+      
+      if(t=='y')
+	{
+	  another = true;
 	}
 
-	int start_X = int(5/dx); // center point
-	int start_Y = int(5/dx);
+    }while(another);
 
-	int r1 = int(0.5/dx);
-
-	for (int i = 0; i < ysize; i++ ) {
-		for (int j = 0; j < xsize; j++) {
-			if(((i - start_X) * (i - start_X) + (j - start_Y) * (j - start_Y)) <= r1 * r1)
-			{
-				bound[i][j] = 0.1;
-			}
-		}
-	}
+      std::cout << "Logic grid" << std::endl;
+      std::cout << lgrid << std::endl;
+      std::cout << std::endl;
+      std::cout << "Potential grid" << std::endl;
+      std::cout << pgrid << std::endl;
 
 
 
-	clock_t start, end;
-	double cpu_time;
-	start = clock();// Apply SOR method to find potential and electric field magnitude
 
 
-	sor(xsize, ysize, dx, dy, u, bound);
-
-	end = clock();
-	cpu_time = ((double) (end - start)) / CLOCKS_PER_SEC;
-	cout << "CPU time used: " << cpu_time << endl;
-
-
-	return 0;
+  return 0;
 }
