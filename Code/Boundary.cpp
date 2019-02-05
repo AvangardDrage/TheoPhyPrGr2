@@ -1,6 +1,6 @@
 #include "Boundary.h"
 
- void BGD (Eigen::Matrix<bool, 10, 10>& grid, Box obj)
+ void BGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Box obj)
 {
   for(int i=static_cast<int>(obj.centre[0]-(0.5*obj.width));i < static_cast<int>((obj.centre[0]+(0.5*obj.width))); i++)
     {
@@ -11,7 +11,7 @@
     }
 }
 
-void BPD (Eigen::Matrix<double, 10, 10>& grid, Box obj)
+void BPD (Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& grid, Box obj)
 {
   for(int i = floor((obj.centre[0]-(0.5*obj.width)));i < floor((obj.centre[0]+(0.5*obj.width))); i++)
     {
@@ -23,7 +23,7 @@ void BPD (Eigen::Matrix<double, 10, 10>& grid, Box obj)
 }
 
 
-void CPD (Eigen::Matrix<double, 10, 10>& grid, Circle obj)
+void CPD (Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& grid, Circle obj)
 {
   for(int i= static_cast<int>(obj.centre[0]-obj.radius);i <= static_cast<int>(obj.centre[0]+(obj.radius)); i++)
     {
@@ -37,7 +37,7 @@ void CPD (Eigen::Matrix<double, 10, 10>& grid, Circle obj)
     }
 }
 
-void CGD (Eigen::Matrix<bool, 10, 10>& grid, Circle obj)
+void CGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Circle obj)
 {
   for(int i = static_cast<int>(obj.centre[0]-obj.radius);i <= static_cast<int>(obj.centre[0]+obj.radius); i++)
     {
@@ -51,7 +51,7 @@ void CGD (Eigen::Matrix<bool, 10, 10>& grid, Circle obj)
     }  
 }
 
-void PGD (Eigen::Matrix<bool, 10, 10>& grid, Plate obj)
+void PGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj)
 {
   if(obj.direction[0])
     {
@@ -113,7 +113,7 @@ void PGD (Eigen::Matrix<bool, 10, 10>& grid, Plate obj)
 }
 
 
-void PPD (Eigen::Matrix<double, 10, 10 >& grid, Plate obj)
+void PPD (Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj)
 {
   if(obj.direction[0])
     {

@@ -42,7 +42,7 @@ EigenRule: <.cpp> $(EPATH)<include>
 bdtest: bdtest.cpp BDefine.cpp ObjectInput.cpp 
 	g++ $(EPATH) $(HPATH) -o $@.exe $^
 
-solver: main.cpp ObjectInput.cpp Boundary.cpp
+solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp
 	g++ -g $(EPATH) $(HPATH) -o $@.exe $^
 
 
