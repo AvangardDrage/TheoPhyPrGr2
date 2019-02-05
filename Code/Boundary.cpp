@@ -53,13 +53,10 @@ void CGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Circle obj)
 
 void PGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj)
 {
-  if(obj.direction[0])
+  if(obj.direction[0]) // vertical
     {
-      // vertical
-      if(obj.direction[1])
+      if(obj.direction[1]) // +ve x
 	{
-	  // extension to the right
-
 	  for(int i=0;i<grid.rows(); i++)
 	    {
 	      for(int j=obj.centre[0];j<grid.cols();j++)
@@ -68,12 +65,11 @@ void PGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj)
 		}
 	    }
 	}
-      else
+      else // -ve x
 	{
-	    // extension to the left
 	   for(int i=0;i<grid.rows(); i++)
 	    {
-	      for(int j=obj.centre[0];j>=grid.cols();j--)
+	      for(int j=obj.centre[0];j >= 0;j--)
 		{
 		  grid(i,j)=false;
 		}
@@ -82,14 +78,11 @@ void PGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj)
     }
 
 
-  else
+  else // horizontal
     {
-      // longitudinal
-
-      if(obj.direction[1])
+      if(obj.direction[1]) // Down, +ve y
 	{
-	  // extension up
-	  for(int i=obj.centre[1];i>=grid.rows(); i--)
+	  for(int i=obj.centre[1];i<grid.rows(); i++)
 	    {
 	      for(int j=0;j<grid.cols();j++)
 		{
@@ -97,11 +90,9 @@ void PGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj)
 		}
 	    }
 	}
-      else
+      else // Up, -ve y
 	{
-	    // extension down
-
-	  for(int i=obj.centre[1];i<grid.rows(); i++)
+	  for(int i=obj.centre[1];i>=0; i--)
 	    {
 	      for(int j=0;j<grid.cols();j++)
 		{
@@ -115,12 +106,10 @@ void PGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj)
 
 void PPD (Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj)
 {
-  if(obj.direction[0])
+  if(obj.direction[0]) // vertical
     {
-      // vertical
-      if(obj.direction[1])
+      if(obj.direction[1]) // +ve x
 	{
-	  // extension to the right
 	  for(int i=0;i<grid.rows(); i++)
 	    {
 	      for(int j=obj.centre[0];j<grid.cols();j++)
@@ -129,12 +118,11 @@ void PPD (Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj
 		}
 	    }
 	}
-      else
+      else // -ve x
 	{
-	    // extension to the left
 	   for(int i=0;i<grid.rows(); i++)
 	    {
-	      for(int j=obj.centre[0];j>=grid.cols();j--)
+	      for(int j=obj.centre[0];j >= 0;j--)
 		{
 		  grid(i,j)=obj.potential;
 		}
@@ -143,14 +131,11 @@ void PPD (Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj
     }
 
 
-  else
+  else // horizontal
     {
-      // longitudinal
-
-      if(obj.direction[1])
+      if(obj.direction[1]) // Down, +ve y
 	{
-	  // extension up
-	  for(int i=obj.centre[1];i>=grid.rows(); i--)
+	  for(int i=obj.centre[1];i<grid.rows(); i++)
 	    {
 	      for(int j=0;j<grid.cols();j++)
 		{
@@ -158,11 +143,9 @@ void PPD (Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& grid, Plate obj
 		}
 	    }
 	}
-      else
+      else // Up, -ve y
 	{
-	    // extension down
-
-	  for(int i=obj.centre[1];i<grid.rows(); i++)
+	  for(int i=obj.centre[1];i>=0; i--)
 	    {
 	      for(int j=0;j<grid.cols();j++)
 		{

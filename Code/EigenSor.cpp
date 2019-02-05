@@ -129,7 +129,7 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
 		      
 	    
 		  //     // Leave boundary points unchanged
-		  //   }
+		    }
 		  // else 
 		  //   {
 		  //     pgrid(i,j) = bound(i,j);
@@ -194,5 +194,5 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
     }
   
   outfile.close();
-    }
+
 }

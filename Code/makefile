@@ -3,6 +3,9 @@ EPATH = -I ./Headers/eigenfolder/ # add if matrices are used
 
 REMOVE_O =  $(shell ls *.o)
 
+solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp
+	g++ -g $(EPATH) $(HPATH) -o $@.exe $^
+
 objclass: Objtest.o ObjectInput.o
 	g++ -o $@ $^
 
@@ -41,10 +44,6 @@ EigenRule: <.cpp> $(EPATH)<include>
 
 bdtest: bdtest.cpp BDefine.cpp ObjectInput.cpp 
 	g++ $(EPATH) $(HPATH) -o $@.exe $^
-
-solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp
-	g++ -g $(EPATH) $(HPATH) -o $@.exe $^
-
 
 
 
