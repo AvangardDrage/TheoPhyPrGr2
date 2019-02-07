@@ -12,7 +12,7 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
   int xc, yc;
   double p;
 
-  do
+do
     {
       another = false;
       char o;
@@ -28,11 +28,11 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 
 	std::cout <<"Please enter the x coordinate of the centre: ";
 	std::cin >> xc;
-	bobj.centre[0]=xc;
+	bobj.centre[1]=xc;
 
 	std::cout <<"Please enter the y coordinate of the centre: ";
 	std::cin >> yc;
-	bobj.centre[1]=yc;
+	bobj.centre[0]=yc;
 
 	std::cout <<"Width of the box: ";
 	std::cin >> w;
@@ -70,11 +70,11 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 
 	std::cout <<"Please enter the x coordinate of the centre: ";
 	std::cin >> xc;
-	cobj.centre[0]=xc;
+	cobj.centre[1]=xc;
 
 	std::cout <<"Please enter the y coordinate of the centre: ";
 	std::cin >> yc;
-	cobj.centre[1]=yc;
+	cobj.centre[0]=yc;
 
 	std::cout <<"Radius of Circle: ";
 	std::cin >> r;
@@ -176,19 +176,19 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 
 	std::cout <<"Please enter the x coordinate of the centre: ";
 	std::cin >> xc;
-	sobj.centre[0]=xc;
+	sobj.centre[1]=xc;
 
 	std::cout <<"Please enter the y coordinate of the centre: ";
 	std::cin >> yc;
-	sobj.centre[1]=yc;
+	sobj.centre[0]=yc;
+
+	std::cout <<"Outer Radius of Shell: ";
+	std::cin >> b;
+	sobj.oradius = b;
 
 	std::cout <<"Inner Radius of Shell: ";
 	std::cin >> a;
 	sobj.iradius = a;
-
-	std::cout <<"Inner Radius of Shell: ";
-	std::cin >> b;
-	sobj.oradius = b;
 
 	std::cout << "Is the object grounded?('y' or 'n'): ";
 	std::cin >> g;
@@ -216,13 +216,12 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 	another = true;
       }
 
-      std::cout << "Would you like to insert another object? ('y' or 'n'): ";
-      std::cin >> t;
+	  std::cout << "Would you like to insert another object? ('y' or 'n'): ";
+	  std::cin >> t;
       
       if(t=='y')
 	{
 	  another = true;
 	}
-
     }while(another);
 }

@@ -6,7 +6,7 @@
 {
   for(int i=static_cast<int>(obj.centre[0]-(0.5*obj.width));i < static_cast<int>((obj.centre[0]+(0.5*obj.width))); i++)
     {
-      for(int j=floor((obj.centre[1]-(0.5*obj.length)));j<floor((obj.centre[1]+(0.5*obj.length))); j++)
+      for(int j=static_cast<int>(obj.centre[1]-(0.5*obj.length));j<static_cast<int>((obj.centre[1]+(0.5*obj.length))); j++)
 	{
 	  lgrid(i,j) = false;
 	  pgrid(i,j) = obj.potential;
