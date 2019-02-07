@@ -7,6 +7,7 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
   Box bobj;
   Circle cobj;
   Plate pobj;
+  Shell sobj;
   char g;
   int xc, yc;
   double p;
@@ -16,7 +17,7 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
       another = false;
       char o;
       char t;
-      std::cout << "Please choose an object (B,C, or P) to insert: ";
+      std::cout << "Please choose an object (B(ox),C(ircle), P(late), or S(hell)) to insert: ";
       std::cin >> o;
       
       switch(o){
@@ -58,8 +59,8 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 	  }
 	
 	
-        BGD(lgrid, bobj);
-        BPD(pgrid, bobj);
+        BGD(lgrid, pgrid, bobj);
+        //BPD(pgrid, bobj);
 
       	break;	
 	/* ----- Circle case ----- */
@@ -96,8 +97,8 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 	  }
 	
 	
-        CGD(lgrid, cobj);
-        CPD(pgrid, cobj);
+        CGD(lgrid, pgrid, cobj);
+        //CPD(pgrid, cobj);
 	
 
       	break;
@@ -164,17 +165,58 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 	    pobj.potential = 0;
 	  }
 
-        PGD(lgrid, pobj);
-        PPD(pgrid, pobj);
-
+        PGD(lgrid, pgrid, pobj);
+        //PPD(pgrid, pobj);
 
       	break;
+	/* ----- Shell case ----- */
+      case 'S':
+
+	int a,b;
+
+	std::cout <<"Please enter the x coordinate of the centre: ";
+	std::cin >> xc;
+	sobj.centre[0]=xc;
+
+	std::cout <<"Please enter the y coordinate of the centre: ";
+	std::cin >> yc;
+	sobj.centre[1]=yc;
+
+	std::cout <<"Inner Radius of Shell: ";
+	std::cin >> a;
+	sobj.iradius = a;
+
+	std::cout <<"Inner Radius of Shell: ";
+	std::cin >> b;
+	sobj.oradius = b;
+
+	std::cout << "Is the object grounded?('y' or 'n'): ";
+	std::cin >> g;
+       
+
+	if(g=='n')
+	  {
+	    std::cout << "Specify potential of object: ";
+	    std::cin >> p;
+
+	    sobj.potential = p;
+	  }
+	else
+	  {
+	    sobj.potential = 0;
+	  }
+	
+	
+        SGD(lgrid, pgrid, sobj);
+        //SPD(pgrid, cobj);
+
+	break;
       default:
 	std::cout << "Entered undefined object class, please try again." << std::endl;
 	another = true;
       }
 
-      std::cout << "Would you like to insert another object? ('y' or 'n')" <<std:: endl;
+      std::cout << "Would you like to insert another object? ('y' or 'n'): ";
       std::cin >> t;
       
       if(t=='y')

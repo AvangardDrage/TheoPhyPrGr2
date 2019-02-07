@@ -24,11 +24,11 @@ int main()
 
   BDef(lgrid, pgrid);
   
-  std::cout << "Logic grid" << std::endl;
-  std::cout << lgrid << std::endl;
-  std::cout << std::endl;
-  std::cout << "Potential grid" << std::endl;
-  std::cout << pgrid << std::endl;
+  // std::cout << "Logic grid" << std::endl;
+  // std::cout << lgrid << std::endl;
+  // std::cout << std::endl;
+  // std::cout << "Potential grid" << std::endl;
+  // std::cout << pgrid << std::endl;
       
 
       sor(1, 1, pgrid, lgrid);

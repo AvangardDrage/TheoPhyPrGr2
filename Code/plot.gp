@@ -33,11 +33,11 @@ set palette defined ( 0 "#1212B0",\
 #vector scale
 h = 0.05
 
-plot [0:10] [0:10] "solution.dat" using 1:2:3 with image notitle
+plot [0:200] [0:200] "test_solution.dat" using 1:2:3 with image notitle
 
 
 set title "Electric field"
-plot [0:10] [0:10] "solution.dat" using 1:2:4 with image notitle
+plot [0:200] [0:200] "test_solution.dat" using 1:2:4 with image notitle
 
 
 
