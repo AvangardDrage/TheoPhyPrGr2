@@ -35,19 +35,16 @@ class Circle{
 };
 
 
-/* class Wire{ */
-/*  public: */
-/*   std::vector<double> centre; */
-/*   std::vector<double> direction; */
-/*   double length; */
-/*   bool ground; */
-/*   double potential; */
+class Shell{
+ public:
+  std::vector<int> centre;
+  int iradius; // inner radius
+  int oradius; // outer radius
+  bool ground;
+  double potential;
 
-/*   void set_centre (double x, double y); */
-/*   void set_length (double length); */
-/*   void set_direction (double xdir, double ydir); */
-/*   void set_potential (double potential); */
-/* }; */
+  Shell();
+};
 
 class Plate{
  public:

@@ -63,6 +63,16 @@ Plate::Plate()
 
 }
 
+Shell::Shell()
+{
+  centre.clear();
+  centre.push_back(0);
+  centre.push_back(0);
+  iradius = 0;
+  oradius = 0;
+  ground = true;
+  potential = 0.0;
+}
 /* Box Class Functions */
 
 void Box::set_centre (int x, int y)

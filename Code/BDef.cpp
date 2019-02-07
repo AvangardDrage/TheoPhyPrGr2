@@ -7,16 +7,17 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
   Box bobj;
   Circle cobj;
   Plate pobj;
+  Shell sobj;
   char g;
   int xc, yc;
   double p;
 
-  do
+do
     {
       another = false;
       char o;
       char t;
-      std::cout << "Please choose an object (B,C, or P) to insert: ";
+      std::cout << "Please choose an object (B(ox),C(ircle), P(late), or S(hell)) to insert: ";
       std::cin >> o;
       
       switch(o){
@@ -27,11 +28,11 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 
 	std::cout <<"Please enter the x coordinate of the centre: ";
 	std::cin >> xc;
-	bobj.centre[0]=xc;
+	bobj.centre[1]=xc;
 
 	std::cout <<"Please enter the y coordinate of the centre: ";
 	std::cin >> yc;
-	bobj.centre[1]=yc;
+	bobj.centre[0]=yc;
 
 	std::cout <<"Width of the box: ";
 	std::cin >> w;
@@ -58,8 +59,8 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 	  }
 	
 	
-        BGD(lgrid, bobj);
-        BPD(pgrid, bobj);
+        BGD(lgrid, pgrid, bobj);
+        //BPD(pgrid, bobj);
 
       	break;	
 	/* ----- Circle case ----- */
@@ -69,11 +70,11 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 
 	std::cout <<"Please enter the x coordinate of the centre: ";
 	std::cin >> xc;
-	cobj.centre[0]=xc;
+	cobj.centre[1]=xc;
 
 	std::cout <<"Please enter the y coordinate of the centre: ";
 	std::cin >> yc;
-	cobj.centre[1]=yc;
+	cobj.centre[0]=yc;
 
 	std::cout <<"Radius of Circle: ";
 	std::cin >> r;
@@ -96,8 +97,8 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 	  }
 	
 	
-        CGD(lgrid, cobj);
-        CPD(pgrid, cobj);
+        CGD(lgrid, pgrid, cobj);
+        //CPD(pgrid, cobj);
 	
 
       	break;
@@ -164,23 +165,63 @@ void BDef(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 	    pobj.potential = 0;
 	  }
 
-        PGD(lgrid, pobj);
-        PPD(pgrid, pobj);
-
+        PGD(lgrid, pgrid, pobj);
+        //PPD(pgrid, pobj);
 
       	break;
+	/* ----- Shell case ----- */
+      case 'S':
+
+	int a,b;
+
+	std::cout <<"Please enter the x coordinate of the centre: ";
+	std::cin >> xc;
+	sobj.centre[1]=xc;
+
+	std::cout <<"Please enter the y coordinate of the centre: ";
+	std::cin >> yc;
+	sobj.centre[0]=yc;
+
+	std::cout <<"Outer Radius of Shell: ";
+	std::cin >> b;
+	sobj.oradius = b;
+
+	std::cout <<"Inner Radius of Shell: ";
+	std::cin >> a;
+	sobj.iradius = a;
+
+	std::cout << "Is the object grounded?('y' or 'n'): ";
+	std::cin >> g;
+       
+
+	if(g=='n')
+	  {
+	    std::cout << "Specify potential of object: ";
+	    std::cin >> p;
+
+	    sobj.potential = p;
+	  }
+	else
+	  {
+	    sobj.potential = 0;
+	  }
+	
+	
+        SGD(lgrid, pgrid, sobj);
+        //SPD(pgrid, cobj);
+
+	break;
       default:
 	std::cout << "Entered undefined object class, please try again." << std::endl;
 	another = true;
       }
 
-      std::cout << "Would you like to insert another object? ('y' or 'n')" <<std:: endl;
-      std::cin >> t;
+	  std::cout << "Would you like to insert another object? ('y' or 'n'): ";
+	  std::cin >> t;
       
       if(t=='y')
 	{
 	  another = true;
 	}
-
     }while(another);
 }

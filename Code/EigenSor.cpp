@@ -24,8 +24,8 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
   double tol = 1e-6;		// The tolerance sets the digits precision of the solution
   double resid, rnorm, avg_norm, Ex, Ey;
 
-  Eigen::VectorXd x = Eigen::VectorXd::LinSpaced(xsize, 0, xsize*dx);
-  Eigen::VectorXd y = Eigen::VectorXd::LinSpaced(ysize, 0, ysize*dy);
+  // Eigen::VectorXd x = Eigen::VectorXd::LinSpaced(xsize, 0, xsize*dx);
+  // Eigen::VectorXd y = Eigen::VectorXd::LinSpaced(ysize, 0, ysize*dy);
 
   Eigen::MatrixXd grad= Eigen::MatrixXd::Zero(ysize,xsize);
 
@@ -189,7 +189,7 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
     {
       for (j = 0; j < xsize; j++) 
 	{
-	  outfile << x(j) << " " << y(i) << " " << pgrid(i,j) << " " << grad(i,j) << std::endl;
+	  outfile << j << " " << i << " " << pgrid(i,j) << " " << grad(i,j) << std::endl;
 	}
     }
   
