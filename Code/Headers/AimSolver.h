@@ -1,0 +1,11 @@
+#ifndef AIMSOLVER_H
+#define AIMSOLVER_H
+
+#include <iostream>
+#include "GenSolver.h"
+#include "ASol.h"
+#include "ObjectInput.h"
+
+void AimSolver(Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& pgrid);
+
+#endif

@@ -3,7 +3,7 @@ EPATH = -I ./Headers/eigenfolder/ # add if matrices are used
 
 REMOVE_O =  $(shell ls *.o)
 
-solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp
+solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp GenSolver.cpp AimSolver.cpp ASolv2.cpp
 	g++ -g $(EPATH) $(HPATH) -o $@.exe $^
 
 objclass: Objtest.o ObjectInput.o
