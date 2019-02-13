@@ -1,10 +1,11 @@
 HPATH = -I ./Headers/ # add for header compilation
 EPATH = -I ./Headers/eigenfolder/ # add if matrices are used
+CFLAG = -O2
 
 REMOVE_O =  $(shell ls *.o)
 
-solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp GenSolver.cpp AimSolver.cpp ASolv2.cpp
-	g++ -g $(EPATH) $(HPATH) -o $@.exe $^
+solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp GenSolver.cpp AimSolver.cpp ASol.cpp
+	g++ -g $(CFLAG) $(EPATH) $(HPATH) -o $@.exe $^
 
 objclass: Objtest.o ObjectInput.o
 	g++ -o $@ $^

@@ -13,8 +13,7 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
 		with size [xsize, ysize], and fixed boundaries bound from external code.
 	*/
 
-
-  std::ofstream outfile;
+   std::ofstream outfile;
   outfile.open("test_solution.dat");
   
   int i, j, n, half_sweep, isw, jsw;
@@ -33,9 +32,9 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
   double p = (cos(M_PI/xsize) + (dx/dy)*(dx/dy) * cos(M_PI/ysize)) / (1.0 + (dx/dy)*(dx/dy));
   double w = 1.0;		// Assume the relaxation parameter is one
   
-
-
-  // Iterate until convergence
+  int bp_s=clock();
+ 
+ // Iterate until convergence
   for (n = 0; n < max_iter; n++)
     {
     
@@ -160,11 +159,15 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
 	}
       else
 	{
+	  int ep_s = clock();
 	  std::cout << "Method converges in " << iter << " iterations and w = " << w << std::endl;
+	  std::cout << "Execution time: " << (ep_s - bp_s)/double(CLOCKS_PER_SEC)*1000 << " microseconds" << std::endl;
 	  break;
 	}
     }
   
+
+
   /*
     Compute electric field components by central difference approximation.
     No calculation needed for points on the sides of the grid, since E=0
