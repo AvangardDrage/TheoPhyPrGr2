@@ -14,6 +14,8 @@ void ASol(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle& 
   std::ofstream outfile;
   outfile.open("solution_new.dat");
 
+
+  int bp_s=clock();
   //Calculate the analytical solution
   for (int i = 0; i < asol.rows(); i++)
     {
@@ -74,6 +76,8 @@ void ASol(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle& 
 	  //  std::cout << "*********************************" << std::endl;
 	}
     }
+  int ep_s=clock();
+  std::cout<<"Analytical Method time: " << ( ep_s-bp_s )/double(CLOCKS_PER_SEC)*1000<<"microseconds" <<std::endl;
 }
 
 
