@@ -26,21 +26,21 @@ do
 	
 	int w,l;
 
-	std::cout <<"Please enter the x coordinate of the centre: ";
+	std::cout <<"Please enter the x coordinate of the corner (smaller value): ";
 	std::cin >> xc;
-	bobj.centre[1]=xc;
+	bobj.corner[1]=xc;
 
-	std::cout <<"Please enter the y coordinate of the centre: ";
+	std::cout <<"Please enter the y coordinate of the corner (smaller value): ";
 	std::cin >> yc;
-	bobj.centre[0]=yc;
+	bobj.corner[0]=yc;
 
-	std::cout <<"Width of the box: ";
+	std::cout <<"Width (x-direction) of the box: ";
 	std::cin >> w;
-	bobj.width = w;
+	bobj.xwidth = w;
 
-	std::cout << "Lenght of the box: ";
+	std::cout << "Lenght (y-direction) of the box: ";
 	std::cin >> l;
-	bobj.length = l;
+	bobj.ywidth = l;
 
 	std::cout << "Is the object grounded?('y' or 'n'): ";
 	std::cin >> g;
@@ -48,7 +48,7 @@ do
 
 	if(g=='n')
 	  {
-	    std::cout << "Specify potential of bobject: ";
+	    std::cout << "Specify potential of object: ";
 	    std::cin >> p;
 
 	    bobj.potential = p;

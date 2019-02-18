@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "GenSolver.h"
-#include "ASol.h"
+#include "ASol2.h"
 #include "ObjectInput.h"
 #include <cmath>
 
