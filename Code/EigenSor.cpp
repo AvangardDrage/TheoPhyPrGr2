@@ -180,7 +180,7 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
 	{
 	  
 	  Ex= 0.5*(pgrid(i,j+1)-pgrid(i,j-1))/dx;
-	  Ey= 0.5*(pgrid(i+1,j)-pgrid(i-1,j))/dx;
+	  Ey= 0.5*(pgrid(i+1,j)-pgrid(i-1,j))/dy;
 	  grad(i,j)= sqrt( pow(Ex, 2) + pow(Ey, 2));
 	  
 	}

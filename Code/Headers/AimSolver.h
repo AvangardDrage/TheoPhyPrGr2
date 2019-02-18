@@ -5,6 +5,7 @@
 #include "GenSolver.h"
 #include "ASol.h"
 #include "ObjectInput.h"
+#include <cmath>
 
 void AimSolver(Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& pgrid);
 
