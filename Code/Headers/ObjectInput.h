@@ -7,17 +7,13 @@
  
 class Box{
  public:
-  std::vector<int> centre;
-  int width;
-  int length;
+  std::vector<int> corner;
+  int xwidth;
+  int ywidth;
   bool ground;
   double potential;
 
   Box();
-
-  void set_centre (int x,int y);
-  void set_parameters (int width, int length);
-  void set_potential (int potential);
 };
 
 class Circle{
@@ -28,10 +24,6 @@ class Circle{
   double potential;
 
   Circle();
-
-  void set_centre (int x, int y);
-  void set_radius (int radius);
-  void set_potential (double potential);
 };
 
 
@@ -49,17 +41,12 @@ class Shell{
 class Plate{
  public:
   std::vector<int> centre;
-  std::vector<bool> direction;
+  std::vector<bool> direction; 
+  // direction(vert,pos): if vert=yes => plate is vertical, pos=yes => extension to the [+] direction
   bool ground;
   double potential;
 
   Plate();
-
-  void set_centre (int x, int y);
-  void set_potential (double potental);
-  //void set_direction (double xdir, double ydir);
-  void set_direction (bool vert, bool pos); // if vert=yes => plate is vertical, pos=yes => extension to the [+] direction
-
 };
 		      
 

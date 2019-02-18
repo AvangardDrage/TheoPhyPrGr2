@@ -29,11 +29,11 @@
 
 Box::Box()
 {
-  centre.clear();
-  centre.push_back(0);
-  centre.push_back(0);
-  width = 0;
-  length = 0;
+  corner.clear();
+  corner.push_back(0);
+  corner.push_back(0);
+  xwidth = 0;
+  ywidth = 0;
   ground = true;
   potential = 0.0;
 
@@ -72,124 +72,4 @@ Shell::Shell()
   oradius = 0;
   ground = true;
   potential = 0.0;
-}
-/* Box Class Functions */
-
-void Box::set_centre (int x, int y)
-{
-  centre.clear();
-  centre.push_back(x);
-  centre.push_back(y);
-}
-
-void Box::set_parameters (int x, int y)
-{
-  width = x;
-  length = y;
-}
-
-void Box::set_potential (int V)
-{
-  if(ground)
-    {
-      potential = 0;
-    }
-  else
-    {
-      potential = V;
-    }
-}
-
-/* Circle class functions */
-
-void Circle::set_centre (int x, int y)
-{
-  centre.clear();
-  centre.push_back(x);
-  centre.push_back(y);
-}
-
-void Circle::set_radius (int r)
-{
-  radius = r;
-}
-
-void Circle::set_potential (double V)
-{
-  if(ground)
-    {
-      potential = 0;
-    }
-  else
-    {
-      potential = V;
-    }
-}
-
-// /* Wire Class functions */ 
-
-// void Wire::set_centre (double x, double y)
-// {
-//   centre.clear();
-//   centre.push_back(x);
-//   centre.push_back(y);
-// }
-
-// void Wire::set_length (double l)
-// {
-//   length = l;
-// }
-
-// void Wire::set_direction (double xdir, double ydir)
-// {
-//   direction.clear();
-//   direction.push_back(xdir);
-//   direction.push_back(ydir);
-// }
-
-// void Wire::set_potential (double V)
-// {
-//   if(ground)
-//     {
-//       potential = 0;
-//     }
-//   else
-//     {
-//      potential = V;
-//     }
-// }
-
-/* Plate Class functions */
-void Plate::set_centre (int x, int y)
-{
-  centre.clear();
-  centre.push_back(x);
-  centre.push_back(y);
-}
-
-void Plate::set_direction (bool vert, bool pos)
-{
-  direction.clear();
-  direction.push_back(vert);
-  direction.push_back(pos);
-}
-
-
-// void Plate::set_direction (double xdir, double ydir)
-// {
-//   direction.clear();
-//   direction.push_back(xdir);
-//   direction.push_back(ydir);
-// }
-
-void Plate::set_potential (double V)
-{
-  if(ground)
-    {
-      potential = 0;
-    }
-  else
-    {
-      potential = V;
-    }
 }

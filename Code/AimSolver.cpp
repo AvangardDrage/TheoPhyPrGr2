@@ -75,7 +75,7 @@ err  = pgrid; // create an error matrix based on pgrid matrix.
  sor(1,1,nsol,lgrid); // numerical method
  // std::cout << "Numerical Method End" << std::endl;
  // std::cout << "Analytical Method Start" << std::endl;
- ASol(asol,cobj,pplate,nplate); // analytical method
+ ASol2(asol,cobj,pplate,nplate); // analytical method
  // std::cout << "Analytical Method End" << std::endl;
 
  //std::cout << "NSol after method: " << std::endl << nsol << std::endl;
