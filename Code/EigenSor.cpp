@@ -13,8 +13,8 @@ void sor(double dx, double dy, Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynami
 		with size [xsize, ysize], and fixed boundaries bound from external code.
 	*/
 
-   std::ofstream outfile;
-  outfile.open("test_solution.dat");
+  std::ofstream outfile;
+  outfile.open("n_SOR.dat");
   
   int i, j, n, half_sweep, isw, jsw;
   int iter = 1;
