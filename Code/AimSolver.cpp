@@ -30,7 +30,8 @@ err  = pgrid; // create an error matrix based on pgrid matrix.
  Plate nplate; // negative plate
  int r;
  int dist; 
- int ptntl; // potential 
+ double ptntl; // potential 
+ int endp;
 
  /* Centre Cylinder */
 
@@ -48,7 +49,8 @@ err  = pgrid; // create an error matrix based on pgrid matrix.
  std::cout << "Please specify the distance between two plates: ";
  std::cin >> dist;
  std::cout << "Please specify the potential of the plates (absolute value): ";
- std::cout >> ptntl;
+ std::cin >> ptntl;
+ 
 
  endp = static_cast<int>((lgrid.cols()-1-dist)/2);
 

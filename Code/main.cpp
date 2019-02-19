@@ -1,14 +1,19 @@
 #include <iostream>
+#include <cstdlib>
 #include <Eigen/Dense>
 #include "GenSolver.h"
 #include "AimSolver.h"
-int main()
+int main(int argc, char *argv[])
 {
   int n,m, mode;
-  std::cout<< "Enter number of rows: ";
-  std::cin >> m;
-  std::cout << "Enter number of columns: ";
-  std::cin >> n;
+  
+  m = atoi(argv[1]);
+  n = atoi(argv[2]);
+  
+  // std::cout<< "Enter number of rows: ";
+  // std::cin >> m;
+  // std::cout << "Enter number of columns: ";
+  // std::cin >> n;
   Eigen::Matrix <bool,Eigen::Dynamic,Eigen::Dynamic> lgrid(m,n); // logic grid
   Eigen::Matrix <double,Eigen::Dynamic,Eigen::Dynamic> pgrid(m,n); // potential grid
   
