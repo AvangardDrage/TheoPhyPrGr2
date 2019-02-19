@@ -22,7 +22,7 @@ do
 
       switch(o){
 	/* ------ Box Case ----- */
-      case 'B' || 'b' :
+      case 'B' :
 
 	int w,l;
 
@@ -64,7 +64,7 @@ do
 
       	break;
 	/* ----- Circle case ----- */
-      case 'C' || 'c' :
+      case 'C' :
 	int r;
 
 
@@ -103,7 +103,7 @@ do
 
       	break;
 	/* ----- Plate Case ----- */
-      case 'P' || 'p' :
+      case 'P' :
 	char vert, pos;
 
 	std::cout <<"Is the plate vertical? ('y' or 'n'): ";
@@ -170,7 +170,7 @@ do
 
       	break;
 	/* ----- Shell case ----- */
-      case 'S'|| 's':
+      case 'S':
 
 	int a,b;
 
