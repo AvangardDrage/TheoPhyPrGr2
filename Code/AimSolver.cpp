@@ -35,8 +35,8 @@ err  = pgrid; // create an error matrix based on pgrid matrix.
 
  /* Centre Cylinder */
 
- cobj.centre[0] = static_cast<int>((lgrid.cols()-1)/2);
- cobj.centre[1] = static_cast<int>((lgrid.rows()-1)/2);
+ cobj.centre[0] = static_cast<int>((lgrid.rows()-1)/2);
+ cobj.centre[1] = static_cast<int>((lgrid.cols()-1)/2);
  
 
  std::cout << "Please specify radius of the centre circle: ";
@@ -66,7 +66,7 @@ err  = pgrid; // create an error matrix based on pgrid matrix.
  nplate.potential = -ptntl;
  PGD(lgrid, nsol, nplate);
 
- sor(1,1,nsol,lgrid); // numerical method
+ sor(nsol,lgrid); // numerical method
  ASol2(asol,cobj,pplate,nplate); // analytical method
  for(int i=0;i<lgrid.rows();i++)
    {
