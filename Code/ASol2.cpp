@@ -70,14 +70,14 @@ void ASol2(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle&
 		  asol(i,j) = cos(theta)*(r-pow(cobj.radius,2)/r)*(nplate.potential*(nplate.centre[0]-pplate.centre[0]))/(pow((nplate.centre[0]-pplate.centre[0]),2)-pow(cos(theta),2)*pow(cobj.radius,2));
 		}
 	      // std::cout << "Gate 3" << std::endl;
-	      //outfile << j << " " << i << " " << asol(i,j) << std:: endl;
+	      outfile << j << " " << i << " " << asol(i,j) << std:: endl;
 	      // std::cout << "--------------------------------" << std::endl;
 	    }
 	  //  std::cout << "*********************************" << std::endl;
 	}
     }
   int ep_s=clock();
-  std::cout<<"Analytical Method time: " << ( ep_s-bp_s )/double(CLOCKS_PER_SEC)*1000<<" microseconds" <<std::endl;
+  std::cout<<"Analytical Method time: " << ( ep_s-bp_s )/double(CLOCKS_PER_SEC)<<" seconds" <<std::endl;
 
   outfile.close();
 }
