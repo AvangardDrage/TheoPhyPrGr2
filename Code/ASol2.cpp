@@ -11,8 +11,8 @@ void ASol2(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle&
   double r;
   double theta;			  //independent variables in cylindical 
 	
-  //std::ofstream outfile;
-  //outfile.open("solution_new.dat");
+  std::ofstream outfile;
+  outfile.open("a_sol_2.dat");
 
 
   int bp_s=clock();
@@ -77,9 +77,9 @@ void ASol2(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle&
 	}
     }
   int ep_s=clock();
-  std::cout<<"Analytical Method time: " << ( ep_s-bp_s )/double(CLOCKS_PER_SEC)*1000<<"microseconds" <<std::endl;
+  std::cout<<"Analytical Method time: " << ( ep_s-bp_s )/double(CLOCKS_PER_SEC)*1000<<" microseconds" <<std::endl;
 
-  //outfile.close();
+  outfile.close();
 }
 
 
