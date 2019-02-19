@@ -25,8 +25,8 @@ void sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matr
   int max_iter = 20000;
   int rows = pgrid.rows(), cols = pgrid.cols();
 
-  double dx = 1/pgrid.cols();
-  double dy = 1/pgrid.rows();
+  double dx = 1/static_cast<double>(pgrid.cols());
+  double dy = 1/static_cast<double>(pgrid.rows());
   double tol = 1e-6;
   double resid, rnorm, avg_norm;
 
@@ -38,7 +38,7 @@ void sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matr
 
   // Spectral radius p of the Jacobi iteration for a rectangular (rows) x (cols) grid
   // and optimal value for the relaxation parameter w
-  double p = (cos(M_PI/cols) + (dx/dy)*(dx/dy) * cos(M_PI/rows)) / (1.0 + (dx/dy)*(dx/dy));
+  double p = (cos(M_PI/cols) + pow((dx/dy),2) * cos(M_PI/rows)) / (1.0 + pow((dx/dy),2));
   double w = 2.0 / (1 + sqrt(1-p*p));
 
 
