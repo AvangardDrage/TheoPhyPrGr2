@@ -19,11 +19,11 @@ do
       char t;
       std::cout << "Please choose an object (B(ox),C(ircle), P(late), or S(hell)) to insert: ";
       std::cin >> o;
-      
+
       switch(o){
-	/* ------ Box Case ----- */ 
-      case 'B' :
-	
+	/* ------ Box Case ----- */
+      case 'B' || 'b' :
+
 	int w,l;
 
 	std::cout <<"Please enter the x coordinate of the corner (smaller value): ";
@@ -44,7 +44,7 @@ do
 
 	std::cout << "Is the object grounded?('y' or 'n'): ";
 	std::cin >> g;
-       
+
 
 	if(g=='n')
 	  {
@@ -57,16 +57,16 @@ do
 	  {
 	    bobj.potential = 0;
 	  }
-	
-	
+
+
         BGD(lgrid, pgrid, bobj);
         //BPD(pgrid, bobj);
 
-      	break;	
+      	break;
 	/* ----- Circle case ----- */
-      case 'C' :
+      case 'C' || 'c' :
 	int r;
-	
+
 
 	std::cout <<"Please enter the x coordinate of the centre: ";
 	std::cin >> xc;
@@ -82,7 +82,7 @@ do
 
 	std::cout << "Is the object grounded?('y' or 'n'): ";
 	std::cin >> g;
-       
+
 
 	if(g=='n')
 	  {
@@ -95,28 +95,28 @@ do
 	  {
 	    cobj.potential = 0;
 	  }
-	
-	
+
+
         CGD(lgrid, pgrid, cobj);
         //CPD(pgrid, cobj);
-	
+
 
       	break;
-	/* ----- Plate Case ----- */ 
-      case 'P' :
+	/* ----- Plate Case ----- */
+      case 'P' || 'p' :
 	char vert, pos;
-	
+
 	std::cout <<"Is the plate vertical? ('y' or 'n'): ";
 	std::cin >> vert;
 
 	if(vert=='y') // vertical
 	  {
 	    pobj.direction[0]=true;
-	    
+
 	    std::cout << "Choose the starting/finishing coordinate in x: ";
 	    std::cin >> xc;
 	    pobj.centre[0]=xc;
-	    
+
 	    std::cout << "Does the plate extend to [+]ve x? ('y' or 'n'): ";
 	    std::cin >> pos;
 	    if(pos=='y') // to the right
@@ -131,11 +131,11 @@ do
 	else // horizontal
 	  {
 	    pobj.direction[0]=false;
-	    
+
 	    std::cout << "Choose the starting/finishing coordinate in y: ";
 	    std::cin >> yc;
 	    pobj.centre[1]=yc;
-	    
+
 	    std::cout << "Does the plate extend to [+]ve y? ('y' or 'n'): ";
 	    std::cin >> pos;
 	    if(pos=='y') // down
@@ -148,10 +148,10 @@ do
 	      }
 	  }
 
-	
+
 	std::cout << "Is the object grounded?('y' or 'n'): ";
 	std::cin >> g;
-       
+
 
 	if(g=='n')
 	  {
@@ -170,7 +170,7 @@ do
 
       	break;
 	/* ----- Shell case ----- */
-      case 'S':
+      case 'S'|| 's':
 
 	int a,b;
 
@@ -192,7 +192,7 @@ do
 
 	std::cout << "Is the object grounded?('y' or 'n'): ";
 	std::cin >> g;
-       
+
 
 	if(g=='n')
 	  {
@@ -205,8 +205,8 @@ do
 	  {
 	    sobj.potential = 0;
 	  }
-	
-	
+
+
         SGD(lgrid, pgrid, sobj);
         //SPD(pgrid, cobj);
 
@@ -218,7 +218,7 @@ do
 
 	  std::cout << "Would you like to insert another object? ('y' or 'n'): ";
 	  std::cin >> t;
-      
+
       if(t=='y')
 	{
 	  another = true;
