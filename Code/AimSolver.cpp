@@ -30,7 +30,7 @@ err  = pgrid; // create an error matrix based on pgrid matrix.
  Plate nplate; // negative plate
  int r;
  int dist; 
- int endp; // endpoint 
+ int ptntl; // potential 
 
  /* Centre Cylinder */
 
@@ -47,19 +47,21 @@ err  = pgrid; // create an error matrix based on pgrid matrix.
    /* Side Plates */
  std::cout << "Please specify the distance between two plates: ";
  std::cin >> dist;
+ std::cout << "Please specify the potential of the plates (absolute value): ";
+ std::cout >> ptntl;
 
  endp = static_cast<int>((lgrid.cols()-1-dist)/2);
 
  pplate.centre[0] = endp;
  pplate.direction[0] = true; // vertical 
  pplate.direction[1] = false; // to the left
- pplate.potential = 1;
+ pplate.potential = ptntl;
  PGD(lgrid, nsol, pplate);
  
  nplate.centre[0] = lgrid.cols()-1-endp;
  nplate.direction[0] = true; // vertical
  nplate.direction[1] = true; // to the right
- nplate.potential = -1;
+ nplate.potential = -ptntl;
  PGD(lgrid, nsol, nplate);
 
  // std::cout << "Hello 1 " << std::endl;
