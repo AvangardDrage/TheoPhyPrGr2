@@ -9,18 +9,24 @@ void ASol2(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle&
 
 
   double r;
+
   double theta;			  //independent variables in cylindical
 
   std::ofstream outfile;
+  std::ofstream cosdata;
   outfile.open("a_sol_2.dat");
+  cosdata.open("cosdata.dat");
+
 
  // int bp_s=clock();
+
   //Calculate the analytical solution
   for (int i = 0; i < asol.rows(); i++)
     {
       //std::cout << "*********************************" << std::endl;
       for (int j = 0; j < asol.cols(); j++)
 	{
+
 
 	  double rx = static_cast<double>(j - cobj.centre[1]);
 	  double ry = static_cast<double>(i - cobj.centre[0]);
@@ -62,6 +68,7 @@ void ASol2(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle&
     }
   //int ep_s=clock();
  // std::cout<<"Analytical Method time: " << ( ep_s-bp_s )/double(CLOCKS_PER_SEC)<<" seconds" <<std::endl;
+
 
   outfile.close();
 }

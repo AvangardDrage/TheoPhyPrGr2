@@ -4,7 +4,7 @@ CFLAG = -O2
 
 REMOVE_O =  $(shell ls *.o)
 
-solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp GenSolver.cpp AimSolver.cpp ASol2.cpp
+solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp GenSolver.cpp AimSolver1.cpp AimSolver2.cpp ASol1.cpp ASol2.cpp 
 	g++ -g $(CFLAG) $(EPATH) $(HPATH) -o $@.exe $^
 
 objclass: Objtest.o ObjectInput.o
