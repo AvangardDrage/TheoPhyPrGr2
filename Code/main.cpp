@@ -6,6 +6,8 @@
 int main(int argc, char *argv[])
 {
   int n,m, mode;
+
+  char gs;
   
   m = atoi(argv[1]);
   n = atoi(argv[2]);
@@ -27,15 +29,17 @@ int main(int argc, char *argv[])
     }
 
   std::cout << "Which mode would you like to run:" << std::endl;
-  std::cout << "[1]: Precision solver based on 2nd analytical problem" << std::endl;
-  std::cout << "[2]: General solver" << std::endl<<"Please enter the corresponding number: ";
+  std::cout << "[1]: Precision solver based on 1st analytical problem" << std::endl;
+  std::cout << "[2]: Precision solver based on 2nd analytical problem" << std::endl;
+  std::cout << "[3]: General solver" << std::endl;
+  std::cout <<"Please enter the corresponding number: ";
   std::cin >> mode;
 
     switch(mode){
       
-    case 1 :
-      AimSolver(lgrid, pgrid);
-      char gs;
+
+    case 1:
+      AimSolver1(lgrid, pgrid);
       std::cout << "Would you like to proceed to use general solver mode?[(y)es or (n)o]: ";
       std::cin >> gs;
       if(gs=='n')
@@ -47,7 +51,50 @@ int main(int argc, char *argv[])
 	  std::cout << "Wrong input. Exiting Program" << std::endl;
 	  break;
 	}
+      else
+	{
+	  // reinitialisation of matrix in case [1]->[2]
+	  for(int i=0; i<lgrid.rows();i++)
+	    {
+	      for(int j=0; j<lgrid.cols(); j++)
+		{
+		  lgrid(i,j) = true;
+		  pgrid(i,j) = 0;
+		}
+	    }
+
+	  GenSolver(lgrid, pgrid);
+	  break;
+	}
     case 2 :
+      AimSolver2(lgrid, pgrid);
+      std::cout << "Would you like to proceed to use general solver mode?[(y)es or (n)o]: ";
+      std::cin >> gs;
+      if(gs=='n')
+	{
+	  break;
+	}
+      else if(gs!='y')
+	{
+	  std::cout << "Wrong input. Exiting Program" << std::endl;
+	  break;
+	}
+      else
+	{
+	  // reinitialisation of matrix in case [1]->[2]
+	  for(int i=0; i<lgrid.rows();i++)
+	    {
+	      for(int j=0; j<lgrid.cols(); j++)
+		{
+		  lgrid(i,j) = true;
+		  pgrid(i,j) = 0;
+		}
+	    }
+
+	  GenSolver(lgrid, pgrid);
+	  break;
+	}
+    case 3 :
       // reinitialisation of matrix in case [1]->[2]
       for(int i=0; i<lgrid.rows();i++)
 	{
@@ -67,27 +114,5 @@ int main(int argc, char *argv[])
 
 
 
-  // std::cout << "Logic grid" << std::endl;
-  // std::cout << lgrid << std::endl;
-  // std::cout << std::endl;
-  // std::cout << "Potential grid" << std::endl;
-  // std::cout << pgrid << std::endl;
-  
-  //std::cout << "break" << std::endl;
-
-  // BDef(lgrid, pgrid);
-  
-  // std::cout << "Logic grid" << std::endl;
-  // std::cout << lgrid << std::endl;
-  // std::cout << std::endl;
-  // std::cout << "Potential grid" << std::endl;
-  // std::cout << pgrid << std::endl;
-      
-
-  // sor(1, 1, pgrid, lgrid);
-
-
-
-
-  return 0;
+    return 0;
 }
