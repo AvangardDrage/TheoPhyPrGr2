@@ -2,19 +2,19 @@
 #include <fstream>
 #include <iomanip>
 
-void AimSolver1(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& pgrid)
+void AimSolver1(Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& pgrid)
 {
   std::ofstream edat;
-  
+
   edat.open("a_sol_err.dat");
-  
+
+  Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic> asol(pgrid.rows(),pgrid.cols());
+
   Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic> nsol(pgrid.rows(),pgrid.cols());
   nsol = pgrid; // copy pgrid matrix into a separate numerical solution matrix
 
-  Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic> asol(pgrid.rows(),pgrid.cols());
-  asol = pgrid;
-
- Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic> err(pgrid.rows(),pgrid.cols());
+  Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic> err(pgrid.rows(),pgrid.cols());
+  err  = pgrid; // create an error matrix based on pgrid matrix
 
   Circle cobj; // centre cylinder
   Shell sobj;  // Outer Shell
@@ -23,7 +23,7 @@ void AimSolver1(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eige
   int rinner;
   int router;
   double ptntl;
-  
+
 
   /* Centre Cylinder */
   cobj.centre[0] = static_cast<int>((lgrid.rows()-1)/2);
@@ -35,14 +35,14 @@ void AimSolver1(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eige
   cobj.potential = 0;
   CGD(lgrid, nsol, cobj);
 
-  /* Outer Shell */ 
+  /* Outer Shell */
   std::cout << "Please specify the inner radius of the outer shell: ";
   std::cin >> rinner;
   std::cout << "Please specify the outer radius of the outer shell: ";
   std::cin >> router;
   std::cout << "Please specify the potential of the outer shell: ";
   std::cin >> ptntl;
- 
+
   sobj.centre[0] = static_cast<int>((lgrid.rows()-1)/2);
   sobj.centre[1] = static_cast<int>((lgrid.cols()-1)/2);
 
@@ -51,17 +51,16 @@ void AimSolver1(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eige
   sobj.potential = ptntl;
 
   SGD(lgrid, nsol, sobj);
-  
 
-  asol = nsol; // copy pgrid matrix into a separate numerical solution matrix
 
-  /* Calculations */ 
-  
-  // numerical
-  sor(nsol, lgrid);
+  asol = nsol; // copy nsol matrix into a separate numerical solution matrix
 
-  // analtical
-  ASol1(asol, cobj, sobj);
+  /* Calculations */
+
+  sor(nsol, lgrid);  // numerical
+  ASol1(asol, cobj, sobj);   // analytical
+
+  /*
 
   for(int i=0;i<lgrid.rows();i++)
     {
@@ -70,14 +69,14 @@ void AimSolver1(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eige
 	  if(lgrid(i,j))
 	    {
 	      err(i,j)= sqrt(pow((asol(i,j)-nsol(i,j)),2));
-	    }		    
+	    }
 	  else
 	    {
 	      err(i,j) = 0;
 	    }
 	}
     }
-  
+
   double nze = 0.0;
   double nzs = 0.0;
 
@@ -95,5 +94,27 @@ void AimSolver1(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eige
     }
 
   std::cout << "Precision of the Eigen SOR method used in general solver: " << nzs/nze << " +- " << err.maxCoeff()-(nzs/nze) << std::endl;
+  */
 
+  //error
+  double err_sum = 0;
+
+  for(int i=0;i<lgrid.rows();i++)
+	{
+	  for(int j=0;j<lgrid.cols();j++)
+		{
+
+	   err(i,j)= fabs(asol(i,j)-nsol(i,j));
+	   err_sum += err(i,j);
+
+	   edat << j << " " << i << " " << err(i,j) << std::endl;
+
+		}
+	}
+
+  double avg_err = err_sum/(err.rows()*err.cols());
+
+  std::cout << "Average error per grid point of the SOR method: " << avg_err << " +- " << err.maxCoeff()-avg_err << std::endl;
+
+  edat.close();
 }

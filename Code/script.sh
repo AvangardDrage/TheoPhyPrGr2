@@ -1,7 +1,13 @@
 #!/bin/bash
 
 clear
-rm *.dat
+
+for file in *; do
+if [ -e ${file}.dat ]
+then
+rm ${file}.dat
+fi
+done
 
 echo "Enter the number of rows (in pixels):"
 read rows
@@ -13,7 +19,7 @@ read cols
 ./solver.exe ${rows} ${cols}
 
 
-if [ -e a_sol_2.dat ]
+if [ -e a_sol.dat ]
 then
 	gnuplot <<- EOF
 		set terminal pdfcairo dashed enhanced
@@ -41,17 +47,17 @@ then
 		plot [0:${rows}-1] [0:${cols}-1] "n_SOR.dat" using 1:2:3 with image
 
 		set title "Electric potential (analytical)"
-		plot [0:${rows}-1] [0:${cols}-1] "a_sol_2.dat" using 1:2:3 with image
+		plot [0:${rows}-1] [0:${cols}-1] "a_sol.dat" using 1:2:3 with image
 
 		set title "Errors"
-		plot [0:${rows}-1] [0:${cols}-1] "a_sol_2_err.dat" using 1:2:3 with image
+		plot [0:${rows}-1] [0:${cols}-1] "a_sol_err.dat" using 1:2:3 with image
 
 		set title ""
 		set dgrid3d 100,100,2
 		set view 10,30,1.2,5
 
 		set pm3d lighting primary 0.3 specular 0.6
-		splot [0:${rows}-1] [0:${cols}-1] "a_sol_2_err.dat" using 1:2:3 with pm3d
+		splot [0:${rows}-1] [0:${cols}-1] "a_sol_err.dat" using 1:2:3 with pm3d
 
 
 		set title "Electric field"
@@ -61,7 +67,7 @@ then
 		#Extrapolate min and max values for potential and electric field
 		stats "n_SOR.dat" using 3 name "POTENTIAL" nooutput
 		stats "n_SOR.dat" using 4 name "ELECTRIC" nooutput
-	 
+
 		h = 10/ELECTRIC_max
 
 
@@ -85,7 +91,7 @@ then
 xdg-open plot.pdf
 
 
-else 
+else
 	gnuplot <<- EOF
 		set terminal pdfcairo dashed enhanced
 		set output "plot.pdf"
@@ -119,7 +125,7 @@ else
 		#Extrapolate min and max values for potential and electric field
 		stats "n_SOR.dat" using 3 name "POTENTIAL" nooutput
 		stats "n_SOR.dat" using 4 name "ELECTRIC" nooutput
-	 
+
 		h = 10/ELECTRIC_max
 
 
