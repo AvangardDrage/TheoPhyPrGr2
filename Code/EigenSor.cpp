@@ -195,9 +195,9 @@ void sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matr
     }
 
   // Append smaller amount of data for quiver plot
-  for (i = 0; i < rows; i+=10)
+  for (i = 0; i < rows; i+=(0.05*rows))
 	{
-	  for (j = 0; j < cols; j+=10)
+	  for (j = 0; j < cols; j+=(0.05*cols))
     {
 	  outfile2 << j << " " << i << " " << Ex(i,j) << " " << Ey(i,j) << std::endl;
     }
