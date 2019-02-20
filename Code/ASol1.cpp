@@ -19,9 +19,9 @@ void ASol1(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle 
 
 
   //Calculate the analytical solution
-  for (int i = sobj.centre[0]-sobj.oradius; i < sobj.centre[0]+sobj.oradius; i++)
+  for (int i = 0; i < asol.rows(); i++)
     {
-      for (int j = sobj.centre[1]-sobj.oradius; j < sobj.centre[1]+sobj.oradius; j++)
+      for (int j = 0; j < asol.cols(); j++)
 	{
 
 	  //std::cout << "i: " << i << ", j: " << j << std::endl;
@@ -39,10 +39,10 @@ void ASol1(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle 
 	    {
 	      asol(i,j) = 0;
 	    }
-	  //else if (r > ro)
-	   // {
-	    //  asol(i,j) = sobj.potential;
-	   // }
+	  else if (r >= ri)
+	    {
+	      asol(i,j) = sobj.potential;
+	    }
 	  //otherwise, calculate the potential inbetween a and b from the analytical solution
 	  else
 	    {

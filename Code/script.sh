@@ -1,13 +1,7 @@
 #!/bin/bash
 
+rm *.dat
 clear
-
-for file in *; do
-if [ -e ${file}.dat ]
-then
-rm ${file}.dat
-fi
-done
 
 echo "Enter the number of rows (in pixels):"
 read rows
@@ -68,7 +62,7 @@ then
 		stats "n_SOR.dat" using 3 name "POTENTIAL" nooutput
 		stats "n_SOR.dat" using 4 name "ELECTRIC" nooutput
 
-		h = 10/ELECTRIC_max
+		h = 15/ELECTRIC_max
 
 
 		set contour base
@@ -126,7 +120,7 @@ else
 		stats "n_SOR.dat" using 3 name "POTENTIAL" nooutput
 		stats "n_SOR.dat" using 4 name "ELECTRIC" nooutput
 
-		h = 10/ELECTRIC_max
+		h = 15/ELECTRIC_max
 
 
 		set contour base
