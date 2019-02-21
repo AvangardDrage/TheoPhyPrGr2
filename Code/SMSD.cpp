@@ -40,13 +40,13 @@ void SMSD(Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Ma
   bplate.potential = bpotential;
   PGD(lgrid, pgrid, bplate);
 
-  std::cout << "Please define the width (y-direction) of the top plate: ";
-  std::cin  >> twidth;
-  std::cout << "Please define the potential of top plate (0 for GND): ";
-  std::cin >> tpotential;
+  // std::cout << "Please define the width (y-direction) of the top plate: ";
+  // std::cin  >> twidth;
+  // std::cout << "Please define the potential of top plate (0 for GND): ";
+  // std::cin >> tpotential;
   
   tplate.centre[1] = lgrid.rows()-twidth;
-  tplate.potential = tpotential;
+  tplate.potential = 0;
   PGD(lgrid, pgrid, tplate);
 
   switch(mode){
