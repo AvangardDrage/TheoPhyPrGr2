@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 #include "GenSolver.h"
 #include "AimSolver.h"
+#include "SMSD.h"
 int main(int argc, char *argv[])
 {
   int n,m, mode;
@@ -31,7 +32,8 @@ int main(int argc, char *argv[])
   std::cout << "Which mode would you like to run:" << std::endl;
   std::cout << "[1]: Precision solver based on 1st analytical problem" << std::endl;
   std::cout << "[2]: Precision solver based on 2nd analytical problem" << std::endl;
-  std::cout << "[3]: General solver" << std::endl;
+  std::cout << "[3]: Solve Silicon Microstrip Detector Problem " << std::endl;
+  std::cout << "[4]: General solver" << std::endl;
   std::cout <<"Please enter the corresponding number: ";
   std::cin >> mode;
 
@@ -40,79 +42,23 @@ int main(int argc, char *argv[])
 
     case 1:
       AimSolver1(lgrid, pgrid);
-      std::cout << "Would you like to proceed to use general solver mode?[(y)es or (n)o]: ";
-      std::cin >> gs;
-      if(gs=='n')
-	{
-	  break;
-	}
-      else if(gs!='y')
-	{
-	  std::cout << "Wrong input. Exiting Program" << std::endl;
-	  break;
-	}
-      else
-	{
-	  // reinitialisation of matrix in case [1]->[2]
-	  for(int i=0; i<lgrid.rows();i++)
-	    {
-	      for(int j=0; j<lgrid.cols(); j++)
-		{
-		  lgrid(i,j) = true;
-		  pgrid(i,j) = 0;
-		}
-	    }
+      break;
 
-	  GenSolver(lgrid, pgrid);
-	  break;
-	}
     case 2 :
       AimSolver2(lgrid, pgrid);
-      std::cout << "Would you like to proceed to use general solver mode?[(y)es or (n)o]: ";
-      std::cin >> gs;
-      if(gs=='n')
-	{
-	  break;
-	}
-      else if(gs!='y')
-	{
-	  std::cout << "Wrong input. Exiting Program" << std::endl;
-	  break;
-	}
-      else
-	{
-	  // reinitialisation of matrix in case [1]->[2]
-	  for(int i=0; i<lgrid.rows();i++)
-	    {
-	      for(int j=0; j<lgrid.cols(); j++)
-		{
-		  lgrid(i,j) = true;
-		  pgrid(i,j) = 0;
-		}
-	    }
+      break;
 
-	  GenSolver(lgrid, pgrid);
-	  break;
-	}
-    case 3 :
-      // reinitialisation of matrix in case [1]->[2]
-      for(int i=0; i<lgrid.rows();i++)
-	{
-	  for(int j=0; j<lgrid.cols(); j++)
-	    {
-	      lgrid(i,j) = true;
-	      pgrid(i,j) = 0;
-	    }
-	}
-
-
+    case 3:
+      SMSD(lgrid, pgrid);
+      break;
+      
+    case 4 :
       GenSolver(lgrid, pgrid);
       break;
+    
     default :
       std::cout << "You have selected a non-existing mode."<<std::endl<<" Exiting program."<<std::endl<<" Please try again."<<std::endl;
     }
-
-
 
     return 0;
 }
