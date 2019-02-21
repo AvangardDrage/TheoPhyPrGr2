@@ -1,13 +1,13 @@
 #include "gauss.h"
 
-void gauss(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid) {
+int gauss(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid) {
 
  	std::ofstream outfile;
  	outfile.open("n_gauss.dat");
 
  	int i, j, n;
  	int iter = 1;
- 	int max_iter = 20000;
+ 	int max_iter = 50000;
   int rows = pgrid.rows(), cols = pgrid.cols();
 
  	double tol = 1e-6;
@@ -116,5 +116,7 @@ void gauss(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Ma
  	}
 
    	outfile.close();
+
+	return iter;
 
 }

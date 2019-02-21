@@ -1,13 +1,13 @@
 #include "jac.h"
 
-void jac(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid) {
+int jac(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid) {
 
 	std::ofstream outfile;
 	outfile.open("n_SOR.dat");
 
   int i, j, n;
   int iter = 1;
-  int max_iter = 20000;
+  int max_iter = 50000;
   int rows = pgrid.rows(), cols = pgrid.cols();
   double tol = 1e-6, resid, rnorm, avg_norm;
 	double dx = 1/static_cast<double>(pgrid.cols());
@@ -124,4 +124,6 @@ void jac(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matr
     }
 
 outfile.close();
+
+return iter;
 }

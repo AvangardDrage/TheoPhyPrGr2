@@ -1,7 +1,7 @@
 #include "EigenSor.h"
 
 
-void sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid)
+int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid)
 {
 
 	/*
@@ -195,9 +195,9 @@ void sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matr
     }
 
   // Append smaller amount of data for quiver plot
-  for (i = 0; i < rows; i+=(0.05*rows))
+  for (i = 0; i < rows; i += static_cast<int>(0.05*rows))
 	{
-	  for (j = 0; j < cols; j+=(0.05*cols))
+	  for (j = 0; j < cols; j += static_cast<int>(0.05*cols))
     {
 	  outfile2 << j << " " << i << " " << Ex(i,j) << " " << Ey(i,j) << std::endl;
     }
@@ -205,5 +205,7 @@ void sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matr
 
   outfile1.close();
   outfile2.close();
+
+  return iter;
 
 }
