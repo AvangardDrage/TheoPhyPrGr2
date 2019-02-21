@@ -72,7 +72,7 @@ int jac(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 						// Compute approximations for inner points
 								} else {
 										resid = u1(i+1,j) + u1(i-1,j) + u1(i,j+1) + u1(i,j-1) - 4.0 * u1(i,j);
-										pgrid(i,j) = u1(i,j) + resid * 0.25;
+										pgrid(i,j) = (4 * u1(i,j) + resid) * 0.25;
 										rnorm += fabs(resid);
 									}
 

@@ -20,6 +20,7 @@ int gauss(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Mat
   Eigen::MatrixXd grad = Eigen::MatrixXd::Zero(rows,cols);
   Eigen::MatrixXd Ex = Eigen::MatrixXd::Zero(rows,cols);
   Eigen::MatrixXd Ey = Eigen::MatrixXd::Zero(rows,cols);
+  Eigen::MatrixXd u1 = Eigen::MatrixXd::Zero(rows,cols);
 
   int bp_s=clock();
 
@@ -27,6 +28,7 @@ int gauss(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Mat
 
     rnorm = 0.0;
     avg_norm = 0.0;
+	u1 = pgrid;
 
 
       for (i = 0; i < rows; i++) {
@@ -69,7 +71,7 @@ int gauss(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Mat
                 rnorm += fabs(resid);
 
             } else {
-                resid = pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j);
+                resid = u1(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + u1(i,j-1) - 4.0 * u1(i,j);
                 pgrid(i,j) += resid * 0.25;
                 rnorm += fabs(resid);
             }
