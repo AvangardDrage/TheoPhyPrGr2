@@ -6,7 +6,7 @@
 {
   for(int i=obj.corner[0];i <= obj.corner[0] + obj.ywidth; i++)
     {
-      for(int j = obj.corner[1] ; j <= obj.corner[1] + obj.ywidth; j++)
+      for(int j = obj.corner[1] ; j <= obj.corner[1] + obj.xwidth; j++)
 	{
 	  lgrid(i,j) = false;
 	  pgrid(i,j) = obj.potential;
@@ -93,11 +93,11 @@ void PGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Mat
 /* Shell Grid Definition */
 void SGD (Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>& pgrid, Shell obj)
 {
-  for(int i = static_cast<int>(obj.centre[0]-obj.oradius);i <= static_cast<int>(obj.centre[0]+obj.oradius); i++)
+  for(int i = (obj.centre[0]-obj.oradius);i < (obj.centre[0]+obj.oradius); i++)
     {
-      for(int j = static_cast<int>(obj.centre[1]-obj.oradius);j <= static_cast<int>(obj.centre[1]+obj.oradius); j++)
+      for(int j = (obj.centre[1]-obj.oradius);j < (obj.centre[1]+obj.oradius); j++)
 	{
-	  if((pow((i-obj.centre[0]),2)+ pow((j-obj.centre[1]),2) <= pow(obj.oradius,2.0))&&(pow((i-obj.centre[0]),2)+ pow((j-obj.centre[1]),2) >= pow(obj.iradius,2.0)))	   
+	  if((pow((i-obj.centre[0]),2)+ pow((j-obj.centre[1]),2) <= pow(obj.oradius,2.0)) && (pow((i-obj.centre[0]),2)+ pow((j-obj.centre[1]),2) >= pow(obj.iradius,2.0)))	   
 	    {
 	      lgrid(i,j) = false;
 	      pgrid(i,j) = obj.potential;

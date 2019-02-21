@@ -34,7 +34,6 @@ Box::Box()
   corner.push_back(0);
   xwidth = 0;
   ywidth = 0;
-  ground = true;
   potential = 0.0;
 
 }
@@ -45,7 +44,6 @@ Circle::Circle()
   centre.push_back(0);
   centre.push_back(0);
   radius = 0;
-  ground = true;
   potential = 0.0;
 
 }
@@ -58,7 +56,6 @@ Plate::Plate()
   direction.clear();
   direction.push_back(true); //plate is vertical
   direction.push_back(true); //plate is in positive x
-  ground = true;
   potential = 0.0;
 
 }
@@ -70,6 +67,5 @@ Shell::Shell()
   centre.push_back(0);
   iradius = 0;
   oradius = 0;
-  ground = true;
   potential = 0.0;
 }
