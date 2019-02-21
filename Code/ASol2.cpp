@@ -8,6 +8,7 @@ void ASol2(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle&
 {
   double r;
   double theta;			  //independent variables in cylindrical coordinates
+  double t = static_cast<double>(0.5*(nplate.centre[0]-pplate.centre[0]));
 
   std::ofstream outfile;
   outfile.open("a_sol.dat");
@@ -40,11 +41,11 @@ void ASol2(Eigen::Matrix <double, Eigen::Dynamic, Eigen::Dynamic>& asol, Circle&
 	      // on the negative x-axis, potential is set to +V, on the positive it is -V
 	   else if (j < cobj.centre[1] && j > pplate.centre[0])
 		{
-		 asol(i,j) = 2*cos(theta)*(r-pow(cobj.radius,2)/r)*(pplate.potential*(nplate.centre[0]-pplate.centre[0]))/(pow((nplate.centre[0]-pplate.centre[0]),2)-pow(cos(theta),2)*pow(cobj.radius,2));
+		 asol(i,j) = cos(theta)*(r-pow(cobj.radius,2)/r)*(pplate.potential*t)/(pow(t,2)-pow(cos(theta),2)*pow(cobj.radius,2));
 		}
 	   else if (j > cobj.centre[1] && j < nplate.centre[0])
 		{
-		 asol(i,j) = 2*cos(theta)*(r-pow(cobj.radius,2)/r)*(nplate.potential*(nplate.centre[0]-pplate.centre[0]))/(pow((nplate.centre[0]-pplate.centre[0]),2)-pow(cos(theta),2)*pow(cobj.radius,2));
+		 asol(i,j) = cos(theta)*(r-pow(cobj.radius,2)/r)*(nplate.potential*t)/(pow(t,2)-pow(cos(theta),2)*pow(cobj.radius,2));
 		}
 	      outfile << j << " " << i << " " << asol(i,j) << std::endl;
 	}
