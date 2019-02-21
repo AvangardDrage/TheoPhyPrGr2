@@ -60,7 +60,7 @@ void SMSD(Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Ma
     for(int i=0; i < number; i++)
       {
 	Box bobj;
-	bobj.corner[0]= lgrid.rows()-twidth-height;
+	bobj.corner[0]= lgrid.rows()-twidth-height-1;
 	bobj.corner[1] = (2*i + 1)*length;
 	bobj.potential = 0;
 	bobj.xwidth = length;
@@ -84,7 +84,7 @@ void SMSD(Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eigen::Ma
     for(int i=0; i < number; i++)
       {
 	Box bobj;
-	bobj.corner[0]= lgrid.rows()-twidth-height;
+	bobj.corner[0]= lgrid.rows()-twidth-height-1;
 	bobj.corner[1] = (2*i + 1)*length;
 	bobj.potential = 0;
 	bobj.xwidth = length;
