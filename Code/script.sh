@@ -47,10 +47,11 @@ then
 		plot [0:${rows}-1] [0:${cols}-1] "a_sol_err.dat" using 1:2:3 with image
 
 		set title ""
-		set dgrid3d 100,100,2
-		set view 10,30,1.2,5
+		set dgrid3d 100,100,4
+		set view 10,30,0.8,7
+		set ticslevel 0
 
-		set pm3d lighting primary 0.3 specular 0.6
+		set pm3d lighting primary 0.1 specular 0.6
 		splot [0:${rows}-1] [0:${cols}-1] "a_sol_err.dat" using 1:2:3 with pm3d
 
 
