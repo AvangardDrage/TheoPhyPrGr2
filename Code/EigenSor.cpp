@@ -77,52 +77,52 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 				      // Compute approximations for corner points
 				      if (i == 0 && j == 0)
 					{
-					  resid = pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j);
-					  pgrid(i,j) += w * resid * 0.25;
+					  resid = 0.25*(pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (i == 0 && j == cols-1)
 					{
-					  resid = pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j);
-					  pgrid(i,j) += w * resid * 0.25;
+					  resid = 0.25*(pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (i == rows-1 && j == 0)
 					{
-					  resid = pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j);
-					  pgrid(i,j) += w * resid * 0.25;
+					  resid = 0.25*(pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (i == rows-1 && j == cols-1)
 					{
-					  resid = pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j);
-					  pgrid(i,j) += w * resid * 0.25;
+					  resid = 0.25*(pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 
 					  // Compute approximations for points on the grid sides
 					}
 				      else if (i == 0)
 					{
-					  resid = pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j);
-					  pgrid(i,j) += w * resid * 0.25;
+					  resid = 0.25*(pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (i == rows-1)
 					{
-					  resid = pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j);
-					  pgrid(i,j) += w * resid * 0.25;
+					  resid = 0.25*(pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (j == 0)
 					{
-					  resid = pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j);
-					  pgrid(i,j) += w * resid * 0.25;
+					  resid = 0.25*(pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (j == cols-1)
 					{
-					  resid = pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j);
-					  pgrid(i,j) += w * resid * 0.25;
+					  resid = 0.25*(pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 
 					  // Compute approximations for inner points
@@ -171,7 +171,6 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
     No calculation needed for points on the sides of the grid, since E=0
     outside capacitors and grad is initialised to zero.
   */
-
   for (i = 2; i < rows-2; i++)
 	{
 	  for (j = 2; j < cols-2; j++)
@@ -188,6 +187,7 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 		}
 	    }
 	}
+
 
 
   // Append data to file for plotting
