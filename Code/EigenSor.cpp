@@ -77,25 +77,25 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 				      // Compute approximations for corner points
 				      if (i == 0 && j == 0)
 					{
-					  resid = 0.25*(pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j));
+					  resid = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/2;
 					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (i == 0 && j == cols-1)
 					{
-					  resid = 0.25*(pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  resid = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/2;
 					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (i == rows-1 && j == 0)
 					{
-					  resid = 0.25*(pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j));
+					  resid = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/2;
 					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (i == rows-1 && j == cols-1)
 					{
-					  resid = 0.25*(pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  resid = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/2;
 					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 
@@ -103,25 +103,25 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 					}
 				      else if (i == 0)
 					{
-					  resid = 0.25*(pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  resid = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
 					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (i == rows-1)
 					{
-					  resid = 0.25*(pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  resid = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
 					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (j == 0)
 					{
-					  resid = 0.25*(pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j));
+					  resid = (pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/3;
 					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 					}
 				      else if (j == cols-1)
 					{
-					  resid = 0.25*(pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  resid = (pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
 					  pgrid(i,j) += w * resid;
 					  rnorm += fabs(resid);
 
@@ -151,7 +151,7 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 
 	  if (iter > max_iter)
 	    {
-		   std::cout << "Method does not converge in " << max_iter << " iterations" << w << std::endl;
+		   std::cout << "Method does not converge in " << max_iter << " iterations" << std::endl;
 		   break;
 		}
 	}
@@ -179,7 +179,7 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 		{
 		  grad(i,j) = 0;
 		}
-		  else
+  		  else
 		{
 		  Ex(i,j) = -(-pgrid(i,j+2) + 8*pgrid(i,j+1) - 8*pgrid(i,j-1) + pgrid(i,j-2))/(12*dx);
 		  Ey(i,j) = -(-pgrid(i+2,j) + 8*pgrid(i+1,j) - 8*pgrid(i-1,j) + pgrid(i-2,j))/(12*dy);

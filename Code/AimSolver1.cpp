@@ -60,41 +60,7 @@ void AimSolver1(Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eig
   sor(nsol, lgrid);  // numerical
   ASol1(asol, cobj, sobj);   // analytical
 
-  /*
 
-  for(int i=0;i<lgrid.rows();i++)
-    {
-      for(int j=0;j<lgrid.cols();j++)
-	{
-	  if(lgrid(i,j))
-	    {
-	      err(i,j)= sqrt(pow((asol(i,j)-nsol(i,j)),2));
-	    }
-	  else
-	    {
-	      err(i,j) = 0;
-	    }
-	}
-    }
-
-  double nze = 0.0;
-  double nzs = 0.0;
-
-  for(int i=0;i<err.rows();i++)
-    {
-      for(int j=0;j<err.cols();j++)
-	{
-	  if(lgrid(i,j) || (j!=cobj.centre[0]))
-	    {
-	      nzs = nzs+err(i,j);
-	      nze++;
-	    }
-	  edat << j << " " << i << " " << err(i,j) << std::endl;
-	}
-    }
-
-  std::cout << "Precision of the Eigen SOR method used in general solver: " << nzs/nze << " +- " << err.maxCoeff()-(nzs/nze) << std::endl;
-  */
 
   //error
   double err_sum = 0;
@@ -114,7 +80,7 @@ void AimSolver1(Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic>& lgrid, Eig
 
   double avg_err = err_sum/(err.rows()*err.cols());
 
-  std::cout << "Average error per grid point of the SOR method: " << avg_err << " +- " << err.maxCoeff()-avg_err << std::endl;
+  std::cout << "Average error per grid point of the SOR method: " << avg_err << " [+" << err.maxCoeff()-avg_err << ", - " << avg_err-err.minCoeff() << "]"<< std::endl;
 
   edat.close();
 }

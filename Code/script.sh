@@ -3,14 +3,10 @@
 rm *.dat
 clear
 
-echo "Enter the number of rows (in pixels):"
-read rows
+echo "Enter the number of rows or columns for a square grid (in pixels):"
+read N
 
-echo "Enter the number of columns (in pixels):"
-read cols
-
-
-./solver.exe ${rows} ${cols}
+./solver.exe ${N}
 
 
 if [ -e a_sol.dat ]
@@ -38,13 +34,13 @@ then
 
 
 		set title "Electric potential (numerical)"
-		plot [0:${rows}-1] [0:${cols}-1] "n_SOR.dat" using 1:2:3 with image
+		plot [0:${N}-1] [0:${N}-1] "n_SOR.dat" using 1:2:3 with image
 
 		set title "Electric potential (analytical)"
-		plot [0:${rows}-1] [0:${cols}-1] "a_sol.dat" using 1:2:3 with image
+		plot [0:${N}-1] [0:${N}-1] "a_sol.dat" using 1:2:3 with image
 
 		set title "Errors"
-		plot [0:${rows}-1] [0:${cols}-1] "a_sol_err.dat" using 1:2:3 with image
+		plot [0:${N}-1] [0:${N}-1] "a_sol_err.dat" using 1:2:3 with image
 
 		set title ""
 		set dgrid3d 100,100,4
@@ -52,11 +48,11 @@ then
 		set ticslevel 0
 
 		set pm3d lighting primary 0.1 specular 0.6
-		splot [0:${rows}-1] [0:${cols}-1] "a_sol_err.dat" using 1:2:3 with pm3d
+		splot [0:${N}-1] [0:${N}-1] "a_sol_err.dat" using 1:2:3 with pm3d
 
 
 		set title "Electric field"
-		plot [0:${rows}-1] [0:${cols}-1] "n_SOR.dat" using 1:2:4 with image
+		plot [0:${N}-1] [0:${N}-1] "n_SOR.dat" using 1:2:4 with image
 
 
 		#Extrapolate min and max values for potential and electric field
@@ -77,7 +73,7 @@ then
 
 		set title "Electric field"
 		set linestyle 1 lt 2 lc rgb "#77000000"
-		plot [0:${rows}-1] [0:${cols}-1] "n_SOR.dat" using 1:2:4 with image, \
+		plot [0:${N}-1] [0:${N}-1] "n_SOR.dat" using 1:2:4 with image, \
 			"n_SOR_quiver.dat" u (column(1) - h*0.5*column(3)):(column(2) - h*0.5*column(4)):(h*column(3)):(h*column(4))\
 			with vectors head size 0.04,40,20 filled lc 'black', \
 			"cont.dat" u 1:2:3 with lines ls 1
@@ -110,11 +106,11 @@ else
 
 
 		set title "Electric potential (numerical)"
-		plot [0:${rows}-1] [0:${cols}-1] "n_SOR.dat" using 1:2:3 with image
+		plot [0:${N}-1] [0:${N}-1] "n_SOR.dat" using 1:2:3 with image
 
 
 		set title "Electric field"
-		plot [0:${rows}-1] [0:${cols}-1] "n_SOR.dat" using 1:2:4 with image
+		plot [0:${N}-1] [0:${N}-1] "n_SOR.dat" using 1:2:4 with image
 
 
 		#Extrapolate min and max values for potential and electric field
@@ -135,7 +131,7 @@ else
 
 		set title "Electric field"
 		set linestyle 1 lt 2 lc rgb "#77000000"
-		plot [0:${rows}-1] [0:${cols}-1] "n_SOR.dat" using 1:2:4 with image, \
+		plot [0:${N}-1] [0:${N}-1] "n_SOR.dat" using 1:2:4 with image, \
 			"n_SOR_quiver.dat" u (column(1) - h*0.5*column(3)):(column(2) - h*0.5*column(4)):(h*column(3)):(h*column(4))\
 			with vectors head size 0.04,40,20 filled lw 0.7 lc 'black', \
 			"cont.dat" u 1:2:3 with lines ls 1

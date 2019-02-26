@@ -9,17 +9,14 @@ int main(int argc, char *argv[])
   int n,m, mode;
 
   char gs;
-  
+
+  // dimensions for the square grid
   m = atoi(argv[1]);
-  n = atoi(argv[2]);
-  
-  // std::cout<< "Enter number of rows: ";
-  // std::cin >> m;
-  // std::cout << "Enter number of columns: ";
-  // std::cin >> n;
+  n = m;
+
   Eigen::Matrix <bool,Eigen::Dynamic,Eigen::Dynamic> lgrid(m,n); // logic grid
   Eigen::Matrix <double,Eigen::Dynamic,Eigen::Dynamic> pgrid(m,n); // potential grid
-  
+
   for(int i=0; i<lgrid.rows();i++)
     {
       for(int j=0; j<lgrid.cols(); j++)
@@ -38,7 +35,7 @@ int main(int argc, char *argv[])
   std::cin >> mode;
 
     switch(mode){
-      
+
 
     case 1:
       AimSolver1(lgrid, pgrid);
@@ -51,11 +48,11 @@ int main(int argc, char *argv[])
     case 3:
       SMSD(lgrid, pgrid);
       break;
-      
+
     case 4 :
       GenSolver(lgrid, pgrid);
       break;
-    
+
     default :
       std::cout << "You have selected a non-existing mode."<<std::endl<<" Exiting program."<<std::endl<<" Please try again."<<std::endl;
     }
