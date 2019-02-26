@@ -10,6 +10,21 @@ solver: main.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp GenSolver.cp
 comparison: Comparison.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp jac.cpp gauss.cpp BDef.cpp 
 	g++ -g $(CFLAG) $(EPATH) $(HPATH) -o $@.exe $^
 
+error1: err_compar1.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp ASol1.cpp
+	g++ -g $(CFLAG) $(EPATH) $(HPATH) -o $@.exe $^
+
+error2: err_compar2.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp ASol2.cpp
+	g++ -g $(CFLAG) $(EPATH) $(HPATH) -o $@.exe $^
+
+grid1: grid_err1.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp ASol1.cpp
+	g++ -g $(CFLAG) $(EPATH) $(HPATH) -o $@.exe $^
+
+grid2: grid_err2.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp BDef.cpp ASol2.cpp
+	g++ -g $(CFLAG) $(EPATH) $(HPATH) -o $@.exe $^
+
+time: time.cpp ObjectInput.cpp Boundary.cpp EigenSor.cpp jac.cpp gauss.cpp BDef.cpp 
+	g++ -g $(CFLAG) $(EPATH) $(HPATH) -o $@.exe $^
+
 objclass: Objtest.o ObjectInput.o
 	g++ -o $@ $^
 
@@ -56,7 +71,3 @@ clean_o:
 clean_e:
 	rm meshclass finite laplace_new objclass
 
-
-
-
-# test.o ObjectInput.o laplace_new.o finite.o meshclass Meshtest.o MeshSpace.o GridGen.o
