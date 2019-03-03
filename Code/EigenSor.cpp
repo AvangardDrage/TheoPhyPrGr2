@@ -28,13 +28,12 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
   double dx = 1/static_cast<double>(pgrid.cols());
   double dy = 1/static_cast<double>(pgrid.rows());
   double tol = 1e-6;
-  double resid, rnorm, avg_norm;
 
 
   Eigen::MatrixXd grad = Eigen::MatrixXd::Zero(rows,cols);
   Eigen::MatrixXd Ex = Eigen::MatrixXd::Zero(rows,cols);
   Eigen::MatrixXd Ey = Eigen::MatrixXd::Zero(rows,cols);
-
+  Eigen::MatrixXd resid = Eigen::MatrixXd::Zero(rows,cols);
 
   // Spectral radius p of the Jacobi iteration for a rectangular (rows) x (cols) grid
   // and optimal value for the relaxation parameter w
@@ -47,8 +46,6 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
  // Iterate until convergence or until the maximum number of iterations is encountered
   for (n = 0; n < max_iter; n++)
     {
-      rnorm = 0.0;
-      avg_norm = 0.0;
       isw = 0;
 
       // Red-black ordering SOR
@@ -77,61 +74,52 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 				      // Compute approximations for corner points
 				      if (i == 0 && j == 0)
 					{
-					  resid = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/2;
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/2;
+					  pgrid(i,j) += w * resid(i,j);
 					}
 				      else if (i == 0 && j == cols-1)
 					{
-					  resid = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/2;
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/2;
+					  pgrid(i,j) += w * resid(i,j);
 					}
 				      else if (i == rows-1 && j == 0)
 					{
-					  resid = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/2;
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/2;
+					  pgrid(i,j) += w * resid(i,j);
 					}
 				      else if (i == rows-1 && j == cols-1)
 					{
-					  resid = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/2;
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/2;
+					  pgrid(i,j) += w * resid(i,j);
 
 					  // Compute approximations for points on the grid sides
 					}
 				      else if (i == 0)
 					{
-					  resid = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = (pgrid(i+1,j) + pgrid(i,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
+					  pgrid(i,j) += w * resid(i,j);
 					}
 				      else if (i == rows-1)
 					{
-					  resid = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = (pgrid(i,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
+					  pgrid(i,j) += w * resid(i,j);
 					}
 				      else if (j == 0)
 					{
-					  resid = (pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/3;
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = (pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j) - 4.0 * pgrid(i,j))/3;
+					  pgrid(i,j) += w * resid(i,j);
 					}
 				      else if (j == cols-1)
 					{
-					  resid = (pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = (pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j) + pgrid(i,j-1) - 4.0 * pgrid(i,j))/3;
+					  pgrid(i,j) += w * resid(i,j);
 
 					  // Compute approximations for inner points
 					}
 				      else
 					{
-					  resid = 0.25*(pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
-					  pgrid(i,j) += w * resid;
-					  rnorm += fabs(resid);
+					  resid(i,j) = 0.25*(pgrid(i+1,j) + pgrid(i-1,j) + pgrid(i,j+1) + pgrid(i,j-1) - 4.0 * pgrid(i,j));
+					  pgrid(i,j) += w * resid(i,j);
 					}
 
 					}
@@ -142,10 +130,9 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
 		isw = 1-isw;
 		}
 
-	  // Test convergence with norm of the residual per grid point
-	  avg_norm = rnorm / (cols * rows);
+	  // Test convergence with norm of the resid(i,j)ual per grid point
 
-      if (avg_norm >= tol)
+      if (fabs(resid.maxCoeff()) >= tol)
 	{
 	  iter++;
 
@@ -171,16 +158,90 @@ int sor(Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>& pgrid, Eigen::Matri
     No calculation needed for points on the sides of the grid, since E=0
     outside capacitors and grad is initialised to zero.
   */
-  for (i = 2; i < rows-2; i++)
+  for (i = 0; i < rows; i++)
 	{
-	  for (j = 2; j < cols-2; j++)
+	  for (j = 0; j < cols; j++)
 	    {
-		  if(!lgrid(i,j))
+		  if (!lgrid(i,j))      //boundaries
 		{
 		  grad(i,j) = 0;
 		}
-  		  else
+      else if (i == 0 && j == 0)    //corners
+       {
+         Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j))/dx;
+   		   Ey(i,j) = -(pgrid(i+1,j) - pgrid(i,j))/dy;
+   		   grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+       }
+           else if (i == 0 && j == cols-1)
+       {
+         Ex(i,j) = -(pgrid(i,j) - pgrid(i,j-1))/dx;
+   		   Ey(i,j) = -(pgrid(i+1,j) - pgrid(i,j))/dy;
+   		   grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+       }
+           else if (i == rows-1 && j == 0)
+       {
+         Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j))/dx;
+   		   Ey(i,j) = -(pgrid(i,j) - pgrid(i-1,j))/dy;
+   		   grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+       }
+           else if (i == rows-1 && j == cols-1)
+       {
+         Ex(i,j) = -(pgrid(i,j) - pgrid(i,j-1))/dx;
+   		   Ey(i,j) = -(pgrid(i,j) - pgrid(i-1,j))/dy;
+   		   grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+        else if (i == 0)    //sides
+      {
+        Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j-1))/(2*dx);
+        Ey(i,j) = -(pgrid(i+1,j) - pgrid(i,j))/dy;
+        grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+          else if (i == rows-1)
+      {
+        Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j-1))/(2*dx);
+        Ey(i,j) = -(pgrid(i,j) - pgrid(i-1,j))/dy;
+        grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+          else if (j == 0)
+      {
+        Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j))/dx;
+        Ey(i,j) = -(pgrid(i+1,j) - pgrid(i-1,j))/(2*dy);
+        grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+          else if (j == cols-1)
+      {
+        Ex(i,j) = -(pgrid(i,j-1) - pgrid(i,j))/dx;
+        Ey(i,j) = -(pgrid(i+1,j) - pgrid(i-1,j))/(2*dy);
+        grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+          else if (i == 1)      //2nd sides
+      {
+        Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j-1))/(2*dx);
+        Ey(i,j) = -(pgrid(i+1,j) - pgrid(i-1,j))/(2*dy);
+        grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+          else if (i == rows-2)
+      {
+        Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j-1))/(2*dx);
+        Ey(i,j) = -(pgrid(i+1,j) - pgrid(i-1,j))/(2*dy);
+        grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+          else if (j == 1)
+      {
+        Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j-1))/(2*dx);
+        Ey(i,j) = -(pgrid(i+1,j) - pgrid(i-1,j))/(2*dy);
+        grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+          else if (j == cols-2)
+      {
+        Ex(i,j) = -(pgrid(i,j+1) - pgrid(i,j-1))/(2*dx);
+        Ey(i,j) = -(pgrid(i+1,j) - pgrid(i-1,j))/(2*dy);
+        grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
+      }
+
+  		  else    //interior
 		{
+
 		  Ex(i,j) = -(-pgrid(i,j+2) + 8*pgrid(i,j+1) - 8*pgrid(i,j-1) + pgrid(i,j-2))/(12*dx);
 		  Ey(i,j) = -(-pgrid(i+2,j) + 8*pgrid(i+1,j) - 8*pgrid(i-1,j) + pgrid(i-2,j))/(12*dy);
 		  grad(i,j) = sqrt(pow(Ex(i,j), 2) + pow(Ey(i,j), 2));
